@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="zicht_bundle_key_value.admin.key_value_admin"
+                 class="Zicht\Bundle\KeyValueBundle\Admin\KeyValueAdmin">
+            <tag name="sonata.admin" manager_type="orm" label="admin.label.keyvaluemenu_item"
+                 label_translator_strategy="sonata.admin.label.strategy.underscore"/>
+            <argument/>
+            <argument>Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage</argument>
+            <argument>ZichtAdminBundle:CRUD</argument>
+            <call method="setStorageManager">
+                <argument type="service" id="zicht_bundle_key_value.key_value_storage_manager"/>
+            </call>
+            <call method="setTranslationDomain">
+                <argument>admin</argument>
+            </call>
+        </service>
+    </services>
+
+</container>

@@ -1,0 +1,6 @@
+admin:
+    label:
+        keyvaluemenu_item: Generic config
+list:
+    label_storage_key: Key
+    label_storage_value: Value
