@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: erik
- * Date: 3-2-17
- * Time: 9:26
+ * @copyright Zicht Online <http://www.zicht.nl>
  */
 
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
