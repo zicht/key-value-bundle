@@ -9,6 +9,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyAlreadyExistsException;
+use Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyNotFoundException;
 use Zicht\Itertools as iter;
 
 /**
@@ -58,9 +59,13 @@ class KeyValueStorageManager
      *
      * @param string $key
      * @return mixed|PredefinedKey
+     * @throws KeyNotFoundException
      */
     public function getPredefinedKey($key)
     {
+        if (!array_key_exists($key, $this->predefinedKeys)) {
+            throw new KeyNotFoundException(sprintf('Key %s not found', $key));
+        }
         return $this->predefinedKeys[$key];
     }
 

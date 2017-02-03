@@ -16,6 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
 final class KeyValueStorage
 {
     /**
+     * @var int
+     *
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -36,7 +38,7 @@ final class KeyValueStorage
     private $storageValue;
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -60,7 +62,7 @@ final class KeyValueStorage
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     public function getStorageValue()
     {
@@ -68,7 +70,7 @@ final class KeyValueStorage
     }
 
     /**
-     * @param array $storageValue
+     * @param array|string $storageValue
      */
     public function setStorageValue($storageValue)
     {
