@@ -1,0 +1,6 @@
+admin:
+    label:
+        keyvaluemenu_item: Generieke configuratie
+list:
+    label_storage_key: Setting
+    label_storage_value: Waarde

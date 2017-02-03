@@ -8,14 +8,13 @@
         }
     ],
     "require": {
-        "php": ">=5.3"
+        "php": ">=5.3",
+        "zicht/admin-bundle": "^3.0"
     },
     "require-dev": {
     },
     "minimum-stability": "dev",
     "autoload": {
-        "psr-0": {
-            "Zicht": "src/"            
-        }
+        "psr-0": { "": ["src/", "tests/"] }
     }
 }
