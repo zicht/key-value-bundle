@@ -4,3 +4,9 @@ admin:
 list:
     label_storage_key: Key
     label_storage_value: Value
+    label_friendly_name: Addendum
+    no_value: No actual value
+    default_values: Default values
+
+breadcrumb:
+  link_key_value_storage_list: Generic config

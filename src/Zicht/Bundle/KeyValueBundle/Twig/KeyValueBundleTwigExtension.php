@@ -6,6 +6,7 @@
 namespace Zicht\Bundle\KeyValueBundle\Twig;
 
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
+use Zicht\Bundle\KeyValueBundle\KeyValueStorage\PredefinedKey;
 
 /**
  * Class KeyValueBundleTwigExtension.
@@ -41,7 +42,9 @@ class KeyValueBundleTwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('getFromKeyValueStorage', array($this, 'getFromKeyValueStorage'))
+            new \Twig_SimpleFunction('getFromKeyValueStorage', array($this, 'getFromKeyValueStorage')),
+            new \Twig_SimpleFunction('getPredefinedKey', array($this, 'getPredefinedKey')),
+            new \Twig_SimpleFunction('getMissingDBValues', array($this, 'getMissingDBValues')),
         ];
     }
 
@@ -54,5 +57,19 @@ class KeyValueBundleTwigExtension extends \Twig_Extension
     public function getFromKeyValueStorage($key)
     {
         return $this->storageManager->getValue($key);
+    }
+
+    /**
+     * @param $key
+     * @return mixed|PredefinedKey
+     */
+    public function getPredefinedKey($key)
+    {
+        return $this->storageManager->getPredefinedKey($key);
+    }
+
+    public function getMissingDBValues()
+    {
+        return $this->storageManager->getMissingDBKeys();
     }
 }

@@ -36,6 +36,7 @@ class KeyValueAdmin extends Admin
         parent::configureListFields($list);
         $list
             ->add('storageKey')
+            ->add('friendlyName', null, ['template' => 'ZichtKeyValueBundle:Admin:cell_friendlyName.html.twig'])
             ->add('storageValue')
             ->add(
                 '_action',

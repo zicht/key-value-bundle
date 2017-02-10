@@ -1,0 +1,38 @@
+{% extends 'SonataAdminBundle:CRUD:list.html.twig' %}
+
+{% trans_default_domain 'admin' %}
+
+{% block list_table %}
+    {{ parent() }}
+
+
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th colspan="3"><h3>{{ 'list.default_values'|trans }}</h3></th>
+            </tr>
+            <tr>
+                <th>{{ 'list.label_storage_key'|trans }}</th>
+                <th>{{ 'list.label_friendly_name'|trans }}</th>
+                <th>{{ 'list.label_storage_value'|trans }}</th>
+            </tr>
+            </thead>
+            {% for key in getMissingDBValues() %}
+                {% set predefinedKey = getPredefinedKey(key) %}
+                <tr>
+                    <td>{{ predefinedKey.key }}</td>
+                    <td>{{ predefinedKey.friendlyName }}</td>
+                    <td>
+                        {% if not predefinedKey.value %}
+                            <i>{{ 'list.no_value'|trans }}</i>
+                        {% else %}
+                            {{ predefinedKey.value }}
+                        {% endif %}
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

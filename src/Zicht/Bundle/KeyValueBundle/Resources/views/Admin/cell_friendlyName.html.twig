@@ -1,0 +1,10 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% if object %}
+        {% set p = getPredefinedKey(object.storageKey) %}
+        {% if p %}
+            {{ p.friendlyName }}
+        {% endif %}
+    {% endif %}
+{% endblock %}

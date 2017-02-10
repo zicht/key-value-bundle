@@ -4,3 +4,9 @@ admin:
 list:
     label_storage_key: Setting
     label_storage_value: Waarde
+    label_friendly_name: Toelichting
+    no_value: Geen waarde
+    default_values: Standaard waarden
+
+breadcrumb:
+  link_key_value_storage_list: Generieke configuratie
