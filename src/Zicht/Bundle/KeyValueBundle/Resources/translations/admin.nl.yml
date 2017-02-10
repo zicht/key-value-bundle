@@ -10,3 +10,7 @@ list:
 
 breadcrumb:
   link_key_value_storage_list: Generieke configuratie
+
+form:
+  label_storage_key: Setting
+  label_storage_value: Waarde

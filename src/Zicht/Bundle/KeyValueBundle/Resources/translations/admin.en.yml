@@ -10,3 +10,7 @@ list:
 
 breadcrumb:
   link_key_value_storage_list: Generic config
+
+form:
+  label_storage_key: Key
+  label_storage_value: Value
