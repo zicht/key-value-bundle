@@ -5,21 +5,16 @@
 
 namespace ZichtTest\Bundle\KeyValueBundle\Tests\KeyValueStorage;
 
-use Zicht\Bundle\KeyValueBundle\KeyValueStorage\AbstractKeysDefiner;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\PredefinedKey;
+use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeysDefinerInterface;
 
-class FooKeysDefiner extends AbstractKeysDefiner
+class FooKeysDefiner implements KeysDefinerInterface
 {
-    public function __construct()
+    public function getPredefinedKeys()
     {
-        $this->addKeys();
-    }
-
-    private function addKeys()
-    {
-        $key1 = PredefinedKey::createKey('foo-key', 'foo-value', 'The foo');
-        $key2 = PredefinedKey::createKey('bar-key', 'bar-value', 'The bar');
-        $this->predefinedKeys[] = $key1;
-        $this->predefinedKeys[] = $key2;
+        return [
+            PredefinedKey::createKey('foo-key', 'foo-value', 'The foo'),
+            PredefinedKey::createKey('bar-key', 'bar-value', 'The bar')
+        ];
     }
 }
