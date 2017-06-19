@@ -29,8 +29,7 @@ class KeyValueStorageManagerTest extends WebTestCase
         $repo = $this->getRepository();
         $em->method('getRepository')->willReturn($repo);
 
-        $manager = new KeyValueStorageManager($em);
-
+        $manager = new KeyValueStorageManager($em, '/tmp/web', '/tmp/web/media/key_value_storage');
         $definer = new FooKeysDefiner();
         $manager->addKeysDefiner($definer);
 
@@ -45,7 +44,8 @@ class KeyValueStorageManagerTest extends WebTestCase
     public function testKeyAlreadyExists()
     {
         $em = $this->getEntityManager();
-        $manager = new KeyValueStorageManager($em);
+        $manager = new KeyValueStorageManager($em, '/tmp/web', '/tmp/web/media/key_value_storage');
+
         $definer = new FooKeysDefiner();
         $manager->addKeysDefiner($definer);
         $manager->addKeysDefiner($definer);
@@ -60,7 +60,7 @@ class KeyValueStorageManagerTest extends WebTestCase
         $repo = $this->getRepository();
         $em->method('getRepository')->willReturn($repo);
 
-        $manager = new KeyValueStorageManager($em);
+        $manager = new KeyValueStorageManager($em, '/tmp/web', '/tmp/web/media/key_value_storage');
 
         $definer = new FooKeysDefiner();
         $manager->addKeysDefiner($definer);
@@ -87,7 +87,7 @@ class KeyValueStorageManagerTest extends WebTestCase
         $repo->expects(self::at(1))->method('findOneBy')->with(['storageKey' => 'bar-key'])->willReturn($entity2);
         $em->method('getRepository')->willReturn($repo);
 
-        $manager = new KeyValueStorageManager($em);
+        $manager = new KeyValueStorageManager($em, '/tmp/web', '/tmp/web/media/key_value_storage');
         $manager->addKeysDefiner(new FooKeysDefiner());
         $this->assertEquals(strrev('foo-value'), $manager->getValue('foo-key'));
         $this->assertEquals(strrev('bar-value'), $manager->getValue('bar-key'));
@@ -107,7 +107,7 @@ class KeyValueStorageManagerTest extends WebTestCase
         $repo->expects(self::at(0))->method('findOneBy')->with(['storageKey' => 'foo-key'])->willReturn($entity);
         $em->method('getRepository')->willReturn($repo);
 
-        $manager = new KeyValueStorageManager($em);
+        $manager = new KeyValueStorageManager($em, '/tmp/web', '/tmp/web/media/key_value_storage');
         $manager->addKeysDefiner(new FooKeysDefiner());
         $this->assertEquals(strrev('foo-value'), $manager->getValue('foo-key'));
         $this->assertEquals('bar-value', $manager->getValue('bar-key'));

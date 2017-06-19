@@ -34,14 +34,48 @@ class KeyValueStorageManager
     private $registry;
 
     /**
+     * @var string
+     */
+    private $webDirectory;
+
+    /**
+     * @var string
+     */
+    private $storageDirectory;
+
+    /**
      * KeyValueStorageManager constructor.
      *
      * @param RegistryInterface $registry
+     * @param string $webDirectory
+     * @param string $storageDirectory
      */
-    public function __construct(RegistryInterface $registry)
+    public function __construct(RegistryInterface $registry, $webDirectory, $storageDirectory)
     {
         $this->registry = $registry;
+        $this->webDirectory = $webDirectory;
+        $this->storageDirectory = $storageDirectory;
         $this->predefinedKeys = [];
+    }
+
+    /**
+     * Returns the web directory which is publicly accessible
+     *
+     * @return string
+     */
+    public function getWebDirectory()
+    {
+        return $this->webDirectory;
+    }
+
+    /**
+     * Returns the storage directory, which is inside the web directory, where key value files should be stored
+     *
+     * @return string
+     */
+    public function getStorageDirectory()
+    {
+        return $this->storageDirectory;
     }
 
     /**
@@ -52,6 +86,17 @@ class KeyValueStorageManager
     public function getAllKeys()
     {
         return array_keys($this->predefinedKeys);
+    }
+
+    /**
+     * Check if a PredefinedKey exists.
+     *
+     * @param string $key
+     * @return boolean
+     */
+    public function hasPredefinedKey($key)
+    {
+        return array_key_exists($key, $this->predefinedKeys);
     }
 
     /**

@@ -19,14 +19,18 @@ class PredefinedKey
      * @param string $key
      * @param mixed $value
      * @param string|null $friendlyName
+     * @param string $formType
+     * @param array $formOptions
      * @return PredefinedKey
      */
-    public static function createKey($key, $value = null, $friendlyName = null)
+    public static function createKey($key, $value = null, $friendlyName = null, $formType = 'text', array $formOptions = [])
     {
         $instance = new self();
         $instance->setKey($key);
         $instance->setValue($value);
         $instance->setFriendlyName($friendlyName);
+        $instance->setFormType($formType);
+        $instance->setFormOptions($formOptions);
         return $instance;
     }
 
@@ -49,6 +53,20 @@ class PredefinedKey
      * @var string
      */
     private $friendlyName;
+
+    /**
+     * Form type to use when storing the value
+     *
+     * @var string
+     */
+    private $formType;
+
+    /**
+     * Form options to use when storing the value
+     *
+     * @var array
+     */
+    private $formOptions;
 
     /**
      * PredefinedKey constructor.
@@ -84,6 +102,22 @@ class PredefinedKey
     }
 
     /**
+     * @param string $formType
+     */
+    public function setFormType($formType)
+    {
+        $this->formType = $formType;
+    }
+
+    /**
+     * @param array $formOptions
+     */
+    public function setFormOptions($formOptions)
+    {
+        $this->formOptions = $formOptions;
+    }
+
+    /**
      * @return string
      */
     public function getKey()
@@ -105,5 +139,21 @@ class PredefinedKey
     public function getFriendlyName()
     {
         return $this->friendlyName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormType()
+    {
+        return $this->formType;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFormOptions()
+    {
+        return $this->formOptions;
     }
 }
