@@ -8,6 +8,7 @@ namespace Zicht\Bundle\KeyValueBundle\Admin;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
 
 /**
@@ -37,15 +38,15 @@ class KeyValueAdmin extends Admin
         $list
             ->add('storageKey')
             ->add('friendlyName', null, ['template' => 'ZichtKeyValueBundle:Admin:cell_friendlyName.html.twig'])
-            ->add('storageValue')
+            ->add('storageValue', null, ['template' => 'ZichtKeyValueBundle:Admin:cell_storageValue.html.twig'])
             ->add(
                 '_action',
                 'actions',
                 [
                     'actions' => [
                         'edit' => [],
-                        'delete' => []
-                    ]
+                        'delete' => [],
+                    ],
                 ]
             );
     }
@@ -55,15 +56,70 @@ class KeyValueAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $form)
     {
-        if ($this->getSubject() && $this->getSubject()->getId()) {
+        $subject = $this->getSubject();
+
+        if ($subject && $subject->getId()) {
             $form->add('storageKey', 'text', ['read_only' => true]);
+            if ($this->storageManager->hasPredefinedKey($subject->getStorageKey())) {
+                $predefinedKey = $this->storageManager->getPredefinedKey($subject->getStorageKey());
+                $formType = $predefinedKey->getFormType();
+                $formOptions = $predefinedKey->getFormOptions();
+            } else {
+                $formType = 'text';
+                $formOptions = [];
+            }
+            $form->add('storageValue', $formType, $formOptions);
         } else {
             $choices = [];
             foreach ($this->storageManager->getMissingDBKeys() as $value) {
                 $choices[$value] = $value;
             }
             $form->add('storageKey', 'choice', ['choices' => $choices, 'choices_as_values' => true]);
+            // disable storageValue because we must first select a key for us to know the value type
+            $form->add('storageValue', 'text', ['read_only' => true]);
         }
-        $form->add('storageValue', 'text');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function prePersist($subject)
+    {
+        // when we first persist the entity, we want the value to be the same as the predefined default value
+        if ($this->storageManager->hasPredefinedKey($subject->getStorageKey())) {
+            $predefinedKey = $this->storageManager->getPredefinedKey($subject->getStorageKey());
+            $subject->setStorageValue($predefinedKey->getValue());
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function preUpdate($subject)
+    {
+        // when the value is an UploadedFile ('file' form type) we will move it
+        $value = $subject->getStorageValue();
+        if ($value instanceof UploadedFile) {
+            do {
+                $targetFilePath = sprintf(
+                    '%s/%s%s%s%s%s_%s',
+                    $this->storageManager->getStorageDirectory(),
+                    chr(rand(97,122)),
+                    chr(rand(97,122)),
+                    chr(rand(97,122)),
+                    chr(rand(97,122)),
+                    chr(rand(97,122)),
+                    $value->getClientOriginalName()
+                );
+            } while (file_exists($targetFilePath));
+
+            $value->move(dirname($targetFilePath), basename($targetFilePath));
+
+            // we store the relative path in the database
+            $relativeFilePath = substr($targetFilePath, strlen($this->storageManager->getWebDirectory()));
+            $subject->setStorageValue($relativeFilePath);
+
+            // todo: we currently have no mechanism to remove files once they have been persisted
+        }
     }
 }

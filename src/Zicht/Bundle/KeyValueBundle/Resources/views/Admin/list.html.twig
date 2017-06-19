@@ -23,14 +23,7 @@
                 <tr>
                     <td>{{ predefinedKey.key }}</td>
                     <td>{{ predefinedKey.friendlyName }}</td>
-                    <td>
-                        {% if not predefinedKey.value %}
-                            <i>{{ 'list.no_value'|trans }}</i>
-                        {% else %}
-                            {{ predefinedKey.value }}
-                        {% endif %}
-
-                    </td>
+                    <td>{{ predefinedKey.value|json_encode }}</td>
                 </tr>
             {% endfor %}
         </table>
