@@ -69,7 +69,7 @@ class KeyValueStorageManager
     }
 
     /**
-     * Returns the stortage directory, which is inside the web directory, where key value files should be stored
+     * Returns the storage directory, which is inside the web directory, where key value files should be stored
      *
      * @return string
      */
