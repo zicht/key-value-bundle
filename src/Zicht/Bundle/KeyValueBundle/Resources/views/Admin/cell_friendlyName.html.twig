@@ -4,7 +4,7 @@
     {% if object %}
         {% set p = getPredefinedKey(object.storageKey) %}
         {% if p %}
-            {{ p.friendlyName }}
+            {{ p.friendlyName|raw }}
         {% endif %}
     {% endif %}
 {% endblock %}

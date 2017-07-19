@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-- Nothing so far
+- Save a key through the StorageManager with `saveKey` 
 
 ## 1.1.0 - 2017/07/19
 ### Added
