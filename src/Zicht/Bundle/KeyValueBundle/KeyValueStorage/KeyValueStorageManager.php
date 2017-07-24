@@ -167,7 +167,7 @@ class KeyValueStorageManager
      * Save a value for a key.
      *
      * This will _always_ result in having a KeyValueStorage entity.
-     * When a new Entity is created, it is not persisted, and not stored in the DB!
+     * When a new Entity is created, it is only persisted, but not stored in the DB!
      *
      * @param $key
      * @param $value
@@ -181,6 +181,7 @@ class KeyValueStorageManager
             $entity = new KeyValueStorage();
             $entity->setStorageKey($key);
             $entity->setStorageValue($value);
+            $this->registry->getManager()->persist($entity);
         }
         return $entity;
     }
