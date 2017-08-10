@@ -5,10 +5,10 @@
 
 namespace ZichtTest\Bundle\KeyValueBundle\Tests\KeyValueStorage;
 
+use Zicht\Bundle\KeyValueBundle\KeyValueStorage\AbstractKeyDefiner;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\PredefinedKey;
-use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeysDefinerInterface;
 
-class FooKeysDefiner implements KeysDefinerInterface
+class FooKeysDefiner extends AbstractKeyDefiner
 {
     public function getPredefinedKeys()
     {
