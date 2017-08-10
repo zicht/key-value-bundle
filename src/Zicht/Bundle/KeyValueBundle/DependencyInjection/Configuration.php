@@ -19,7 +19,16 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('zicht_key_value_bundle');
+        $rootNode = $treeBuilder->root('zicht_key_value');
+
+        // @formatter:off
+        $rootNode
+            ->children()
+                ->arrayNode('defaults')
+                    ->prototype('scalar')
+                ->end()
+            ->end();
+        // @formatter:on
 
         return $treeBuilder;
     }

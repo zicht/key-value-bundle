@@ -21,9 +21,16 @@ class KeysDefinerCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        // merge possibly multiple config yml files into one $defaults array
+        $defaults = [];
+        foreach ($container->getExtensionConfig('zicht_key_value') as $config) {
+            $defaults = array_merge($defaults, $config['defaults']);
+        }
+
         $definition = $container->getDefinition('zicht_bundle_key_value.key_value_storage_manager');
         $taggedServices = $container->findTaggedServiceIds('zicht_bundle_key_value.keys_definer');
         foreach ($taggedServices as $id => $attributes) {
+            $container->getDefinition($id)->addMethodCall('setDefaultValues', [$defaults]);
             $definition->addMethodCall('addKeysDefiner', array(new Reference($id)));
         }
     }
