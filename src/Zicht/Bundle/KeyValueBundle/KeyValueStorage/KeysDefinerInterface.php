@@ -16,4 +16,11 @@ interface KeysDefinerInterface
      * @return PredefinedKey[]
      */
     public function getPredefinedKeys();
+
+    /**
+     * Set the default values configured in `zicht_key_value.defaults`
+     *
+     * @param array $defaultValues
+     */
+    public function setDefaultValues(array $defaultValues);
 }

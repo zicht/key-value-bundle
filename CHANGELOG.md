@@ -7,11 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 - Nothing so far
 
-## 1.2.0 2017/07/24
+## 2.0.0 - 2017-08-09
+### Added
+- Default values can now be configured in `zicht_key_value.defaults`, these default values
+  are provided to every `KeyDefinerInterface` by calling its `setDefaultValues` method.
+- Class `AbstractKeyDefiner` which can be extended to get methods `setDefaultValues` and `getDefaultValue`.
+
+## 1.2.0 - 2017-07-24
 ### Added
 - Save a key through the StorageManager with `saveKey` 
 
-## 1.1.0 - 2017/07/19
+## 1.1.0 - 2017-07-19
 ### Added
 - Can now specify the form type and form options for every predefined key
 - Form type can be 'file', in which case the file is stored in `web/media/key_value_storage`
@@ -19,5 +25,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - The `web/media/key_value_storage` directory must exist and be writable,
   this is checked once during the configuration compile time
 
-## 1.0.0 - 2017/02/03
+## 1.0.0 - 2017-02-03
 - Initial release

@@ -1,8 +1,9 @@
-# zicht/key-value-bundle
+# `zicht/key-value-bundle`
 A bundle that stores pre-specified key-value pairs.
 
 # How to
-Define a `KeysDefinerInterface` service in your own bundle and tag this service with `zicht_bundle_key_value.keys_definer`
+Define a `KeysDefinerInterface` service in your own bundle and tag 
+this service with `zicht_bundle_key_value.keys_definer`
 
 Every defined key has a unique key and a default value.  When the user
 wants to change the associated value, the custom value is stored in the
@@ -15,5 +16,5 @@ will ask for a file upload.
 
 Make sure the directory `web/media/key_value_storage` exists and is writable.
 
-# Maintainer(s)
+# Maintainer
 - Erik Trapman <erik@zicht.nl>
