@@ -24,7 +24,9 @@ class KeysDefinerCompilerPass implements CompilerPassInterface
         // merge possibly multiple config yml files into one $defaults array
         $defaults = [];
         foreach ($container->getExtensionConfig('zicht_key_value') as $config) {
-            $defaults = array_merge($defaults, $config['defaults']);
+            if (array_key_exists('defaults', $config)) {
+                $defaults = array_merge($defaults, $config['defaults']);
+            }
         }
 
         $definition = $container->getDefinition('zicht_bundle_key_value.key_value_storage_manager');
