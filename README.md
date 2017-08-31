@@ -16,5 +16,9 @@ will ask for a file upload.
 
 Make sure the directory `web/media/key_value_storage` exists and is writable.
 
+# TODO
+Make a list of questions that should be asked (and have "yes" as an answer) before deciding to define a key. Questions could be: is this value modified often? Do we want to give access to the client to this value and/or modifications? Are there alternatives?
+This will prevent creating keys for everything all the time.
+
 # Maintainer
 - Erik Trapman <erik@zicht.nl>
