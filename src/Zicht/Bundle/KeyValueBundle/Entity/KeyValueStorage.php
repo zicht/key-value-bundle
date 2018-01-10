@@ -9,11 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class KeyValue
+ * @final
  *
  * @ORM\Entity()
  * @ORM\Table(name="zicht_keyvalue_keyvaluestorage")
  */
-final class KeyValueStorage
+class KeyValueStorage
 {
     /**
      * @var int
