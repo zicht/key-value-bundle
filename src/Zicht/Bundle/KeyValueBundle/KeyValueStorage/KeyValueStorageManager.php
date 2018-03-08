@@ -154,13 +154,25 @@ class KeyValueStorageManager
      *
      * @param string $key
      * @return array|mixed
+     * @throws KeyNotFoundException
      */
     public function getValue($key)
     {
         if ($entity = $this->getEntity($key)) {
-            return $entity->getStorageValue();
+            $value = $entity->getStorageValue();
+        } else {
+            $value = $this->getDefault($key);
         }
-        return $this->getDefault($key);
+
+        // We need a way to know that this $key is associated to LocaleDependentData.
+        // Unfortunately there is no clean/easy way to do this.  The check below uses
+        // the form type, this works but is not ideal.
+        $predefinedKey = $this->getPredefinedKey($key);
+        if ('zicht_locale_dependent_type' === $predefinedKey->getFormType()) {
+            $value = (new LocaleDependentData($value))->getValue();
+        }
+
+        return $value;
     }
 
     /**

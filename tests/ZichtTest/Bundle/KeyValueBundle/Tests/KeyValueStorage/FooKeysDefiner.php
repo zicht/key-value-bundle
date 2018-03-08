@@ -14,7 +14,14 @@ class FooKeysDefiner extends AbstractKeyDefiner
     {
         return [
             PredefinedKey::createKey('foo-key', 'foo-value', 'The foo'),
-            PredefinedKey::createKey('bar-key', 'bar-value', 'The bar')
+            PredefinedKey::createKey('bar-key', 'bar-value', 'The bar'),
+            PredefinedKey::createKey(
+                'test-locale',
+                ['nl' => 'Hallo Wereld', 'zz' => 'Garble garble', 'en' => 'Hello World'],
+                'Locale dependent message',
+                'zicht_locale_dependent_type',
+                ['type' => 'text']
+            ),
         ];
     }
 }
