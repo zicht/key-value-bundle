@@ -27,15 +27,12 @@ class KeyValueStorageManagerTest extends WebTestCase
      */
     public static function setUpBeforeClass()
     {
-        // 'en' locale as default
+        // 'zz' locale as default
         LocaleDependentData::setLocale('zz');
     }
 
     /**
      * Test adding KeysDefiner results in keys existing with the right value.
-     *
-     * @throws KeyAlreadyExistsException
-     * @throws KeyNotFoundException
      */
     public function testAddingKeyDefiners()
     {
@@ -68,8 +65,6 @@ class KeyValueStorageManagerTest extends WebTestCase
 
     /**
      * Test keys that are missing from the DB are marked.
-     *
-     * @throws KeyAlreadyExistsException
      */
     public function testMissingDBKeys()
     {
@@ -87,9 +82,6 @@ class KeyValueStorageManagerTest extends WebTestCase
 
     /**
      * Test that values in the DB are returned and not the default values.
-     *
-     * @throws KeyAlreadyExistsException
-     * @throws KeyNotFoundException
      */
     public function testValuesFromDB()
     {
@@ -121,9 +113,6 @@ class KeyValueStorageManagerTest extends WebTestCase
 
     /**
      * Test with a mix of predefined values and DB-values.
-     *
-     * @throws KeyAlreadyExistsException
-     * @throws KeyNotFoundException
      */
     public function testMixedValues()
     {

@@ -9,7 +9,7 @@ namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
  * Class LocaleDependentData
  *
  * This class can be used to wrap the json encoded data formed by zicht_locale_dependent_type form type.
- * It's purpose is to return the value of just the current locale.
+ * Its purpose is to return the value of just the current locale.
  */
 class LocaleDependentData
 {
