@@ -25,7 +25,18 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('defaults')
-                    ->prototype('scalar')
+                    ->prototype('scalar')->end()
+                ->end()
+                ->arrayNode('locales')
+                    ->info('A list with locales (and their CMS labels) used by the LocaleDependentDataType')
+                    ->isRequired()
+                    ->requiresAtLeastOneElement()
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('locale')->isRequired()->end()
+                            ->scalarNode('label')->isRequired()->end()
+                        ->end()
+                    ->end()
                 ->end()
             ->end();
         // @formatter:on

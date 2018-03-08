@@ -18,5 +18,10 @@
             <tag name="twig.extension"/>
         </service>
 
+        <service id="zicht_bundle_key_value.event_listener.localization_listener" class="Zicht\Bundle\KeyValueBundle\EventListener\LocalizationListener">
+            <argument type="collection"/> <!-- the available locales are supplied through dependency injection -->
+            <tag name="kernel.event_listener" event="kernel.request"/>
+        </service>
+
     </services>
 </container>

@@ -5,6 +5,12 @@
 
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
+/**
+ * Class LocaleDependentData
+ *
+ * This class can be used to wrap the json encoded data formed by zicht_locale_dependent_type form type.
+ * It's purpose is to return the value of just the current locale.
+ */
 class LocaleDependentData
 {
     /** @var string */
@@ -13,29 +19,55 @@ class LocaleDependentData
     /** @var mixed[] */
     protected $data;
 
+    /**
+     * The locale is set from the request, using a KernelListener
+     *
+     * @param $locale
+     */
     public static function setLocale($locale)
     {
         self::$locale = $locale;
     }
 
+    /**
+     * The data must be in the form ['nl' => mixed, 'en' => mixed, ...]
+     *
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         $this->data = $data;
     }
 
+    /**
+     * Returns the value associated to request->locale, if any
+     *
+     * @return mixed|null
+     */
     public function getValue()
     {
         if (array_key_exists(self::$locale, $this->data)) {
             return $this->data[self::$locale];
         }
 
-        if (sizeof($this->data)) {
-            return current($this->data);
-        }
-
         return null;
     }
 
+    /**
+     * Returns the values for all locales
+     *
+     * @return array|mixed[]
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * Returns the string representation of getValue()
+     *
+     * @return string
+     */
     public function __toString()
     {
         return (string)$this->getValue();

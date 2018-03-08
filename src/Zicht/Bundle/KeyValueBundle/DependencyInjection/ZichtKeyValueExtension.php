@@ -39,7 +39,10 @@ class ZichtKeyValueExtension extends Extension
             ->replaceArgument(2, $this->checkDirectory($rootDir, '../web/media/key_value_storage', true));
 
         $container->getDefinition('zicht_bundle_key_value.form_type.locale_dependent_data_type')
-            ->replaceArgument(0, ['nl', 'en']);
+            ->replaceArgument(0, $config['locales']);
+
+        $container->getDefinition('zicht_bundle_key_value.event_listener.localization_listener')
+            ->replaceArgument(0, array_map(function ($value) { return $value['locale']; }, $config['locales']));
     }
 
     /**

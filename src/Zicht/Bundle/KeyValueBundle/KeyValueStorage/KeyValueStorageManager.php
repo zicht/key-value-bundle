@@ -154,13 +154,22 @@ class KeyValueStorageManager
      *
      * @param string $key
      * @return array|mixed
+     * @throws KeyNotFoundException
      */
     public function getValue($key)
     {
         if ($entity = $this->getEntity($key)) {
-            return $entity->getStorageValue();
+            $value = $entity->getStorageValue();
+        } else {
+            $value = $this->getDefault($key);
         }
-        return $this->getDefault($key);
+
+        $predefinedKey = $this->getPredefinedKey($key);
+        if ('zicht_locale_dependent_type' === $predefinedKey->getFormType()) {
+            $value = (new LocaleDependentData($value))->getValue();
+        }
+
+        return $value;
     }
 
     /**
