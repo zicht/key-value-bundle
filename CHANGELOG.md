@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 - Nothing so far
 
+## 2.0.2 - 2018-01-10
+### Changed
+- Remove the `final` keyword from the `KeyValueStorage` class, see #6
+
+## 2.0.1 - 2017-08-24
+### Changed
+- Bugfix to make sure the defaults are handled properly.
+
 ## 2.0.0 - 2017-08-09
 ### Added
 - Default values can now be configured in `zicht_key_value.defaults`, these default values
