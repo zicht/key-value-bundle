@@ -5,7 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-- Nothing so far
+### Added|Changed|Deprecated|Removed|Fixed|Security
+Nothing so far
+
+## 2.1.1 - 2018-03-12
+### Fixed
+- Removed the dependency on `zicht/admin-bundle`.
 
 ## 2.1.0 - 2018-03-08
 ### Added
