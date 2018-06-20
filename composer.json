@@ -8,10 +8,9 @@
         }
     ],
     "require": {
-        "php": ">=5.3",
-        "zicht/admin-bundle": "^3.0",
+        "php": "^7",
         "zicht/itertools": "^2.0",
-        "symfony/symfony": "~2.7.0",
+        "symfony/symfony": "^3.4",
         "twig/twig": "1.*@stable"
     },
     "require-dev": {

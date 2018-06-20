@@ -5,7 +5,7 @@
 
 namespace ZichtTest\Bundle\KeyValueBundle\KeyValueStorage\Tests;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
@@ -122,11 +122,11 @@ class KeyValueStorageManagerTest extends WebTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|EntityRepository
+     * @return \PHPUnit_Framework_MockObject_MockObject|ObjectRepository
      */
     private function getRepository()
     {
-        return $this->getMockBuilder(EntityRepository::class)->disableOriginalConstructor()->getMock();
+        return $this->getMockBuilder(ObjectRepository::class)->disableOriginalConstructor()->getMock();
     }
 
 }
