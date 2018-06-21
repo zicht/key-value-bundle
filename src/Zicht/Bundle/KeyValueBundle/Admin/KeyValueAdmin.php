@@ -59,7 +59,7 @@ class KeyValueAdmin extends Admin
         $subject = $this->getSubject();
 
         if ($subject && $subject->getId()) {
-            $form->add('storageKey', 'text', ['read_only' => true]);
+            $form->add('storageKey', 'text', ['attr' => ['readonly' => true]]);
             if ($this->storageManager->hasPredefinedKey($subject->getStorageKey())) {
                 $predefinedKey = $this->storageManager->getPredefinedKey($subject->getStorageKey());
                 $formType = $predefinedKey->getFormType();
@@ -76,7 +76,7 @@ class KeyValueAdmin extends Admin
             }
             $form->add('storageKey', 'choice', ['choices' => $choices, 'choices_as_values' => true]);
             // disable storageValue because we must first select a key for us to know the value type
-            $form->add('storageValue', 'text', ['read_only' => true]);
+            $form->add('storageValue', 'text', ['attr' => ['readonly' => true]]);
         }
     }
 

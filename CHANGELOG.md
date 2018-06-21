@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 - Nothing so far
 
+## 3.0.0 - 2018-06-21
+### Added
+- Support for Symfony 3.x and Twig 2.x
+### Removed
+- Support for Symfony 2.x and Twig 1.x
+
 ## 2.1.0 - 2018-03-08
 ### Added
 - A new form type `zicht_locale_dependent_type`, values stored in this type are
