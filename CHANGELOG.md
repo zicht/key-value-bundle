@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 - Nothing so far
 
+## 2.1.0 - 2018-03-08
+### Added
+- A new form type `zicht_locale_dependent_type`, values stored in this type are
+  automatically requested in multiple configurable locales.  Retrieving the value for
+  one of these types results in the value for the current locale. 
+
+## 2.0.2 - 2018-01-10
+### Changed
+- Remove the `final` keyword from the `KeyValueStorage` class, see #6
+
+## 2.0.1 - 2017-08-24
+### Changed
+- Bugfix to make sure the defaults are handled properly.
+
 ## 2.0.0 - 2017-08-09
 ### Added
 - Default values can now be configured in `zicht_key_value.defaults`, these default values
