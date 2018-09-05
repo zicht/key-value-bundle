@@ -5,6 +5,8 @@
 
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 /**
  * Class PredefinedKey.
  *
@@ -23,7 +25,7 @@ class PredefinedKey
      * @param array $formOptions
      * @return PredefinedKey
      */
-    public static function createKey($key, $value = null, $friendlyName = null, $formType = 'text', array $formOptions = [])
+    public static function createKey($key, $value = null, $friendlyName = null, $formType = TextType::class, array $formOptions = [])
     {
         $instance = new self();
         $instance->setKey($key);
