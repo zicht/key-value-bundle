@@ -5,13 +5,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-- Nothing so far
+### Added|Changed|Deprecated|Removed|Fixed|Security
+Nothing so far
 
 ## 3.0.0 - 2018-06-21
 ### Added
 - Support for Symfony 3.x and Twig 2.x
 ### Removed
 - Support for Symfony 2.x and Twig 1.x
+
+## 2.1.2 - 2018-10-16
+### Fixed
+- When the required directory `web/media/key_value_storage` is not available,
+  the code will first try to create it.  If that does not work, it will fail
+  as before.
+
+## 2.1.1 - 2018-03-12
+### Fixed
+- Removed the dependency on `zicht/admin-bundle`.
 
 ## 2.1.0 - 2018-03-08
 ### Added
