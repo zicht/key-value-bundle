@@ -35,8 +35,8 @@ class ZichtKeyValueExtension extends Extension
 
         $rootDir = $container->getParameter('kernel.root_dir');
         $container->getDefinition('zicht_bundle_key_value.key_value_storage_manager')
-            ->replaceArgument(1, $this->checkDirectory($rootDir, '../web'))
-            ->replaceArgument(2, $this->checkDirectory($rootDir, '../web/media/key_value_storage', true));
+            ->replaceArgument(1, realpath(sprintf('%s/%s', $rootDir, '../web')))
+            ->replaceArgument(2, $this->checkDirectory(sprintf('%s/%s', $rootDir, '../web/media/key_value_storage')));
 
         $container->getDefinition('zicht_bundle_key_value.form_type.locale_dependent_data_type')
             ->replaceArgument(0, $config['locales']);
@@ -48,22 +48,25 @@ class ZichtKeyValueExtension extends Extension
     /**
      * Check, at compile time, if the directories are available and writable
      *
-     * @param string $rootDir
-     * @param string $path
-     * @param bool $checkWritable
+     * @param string $directory
      * @return string
      * @throws InvalidConfigurationException
      */
-    private function checkDirectory($rootDir, $path, $checkWritable = false)
+    private function checkDirectory($directory)
     {
-        $directory = sprintf('%s/%s', $rootDir, $path);
+        if (!is_dir($directory)) {
+            @mkdir($directory);
+        }
+
         $realDirectory = realpath($directory);
         if (false === $realDirectory) {
             throw new InvalidConfigurationException(sprintf('Directory does not exist [%s]', $directory));
         }
-        if ($checkWritable && !is_writeable($realDirectory)) {
+
+        if (!is_writeable($realDirectory)) {
             throw new InvalidConfigurationException(sprintf('Directory is not writable [%s]', $realDirectory));
         }
+
         return $realDirectory;
     }
 }

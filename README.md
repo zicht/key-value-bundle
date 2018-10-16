@@ -50,6 +50,20 @@ will ask for a file upload.
 
 Make sure the directory `web/media/key_value_storage` exists and is writable.
 
+# Configuration
+```yaml
+zicht_key_value:
+    locales:
+        -
+            locale: nl
+            label: Nederlands
+        -
+            locale: en
+            label: Engels
+    defaults:
+        zicht.foo_bundle.display_almost_soldout_threshold: 200
+```
+
 # Service
 If you want to use the key value storage at any place in your code. A storage 
 service is available. Registered with the name 
