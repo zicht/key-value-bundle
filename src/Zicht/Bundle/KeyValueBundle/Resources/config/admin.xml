@@ -11,7 +11,7 @@
                  label_translator_strategy="sonata.admin.label.strategy.underscore"/>
             <argument/>
             <argument>Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage</argument>
-            <argument>ZichtAdminBundle:CRUD</argument>
+            <argument/>
             <call method="setStorageManager">
                 <argument type="service" id="zicht_bundle_key_value.key_value_storage_manager"/>
             </call>
