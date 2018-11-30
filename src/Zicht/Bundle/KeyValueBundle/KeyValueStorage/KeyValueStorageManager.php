@@ -44,6 +44,11 @@ class KeyValueStorageManager
     private $storageDirectory;
 
     /**
+     * @var array
+     */
+    private $callsMade;
+
+    /**
      * KeyValueStorageManager constructor.
      *
      * @param RegistryInterface $registry
@@ -56,6 +61,7 @@ class KeyValueStorageManager
         $this->webDirectory = $webDirectory;
         $this->storageDirectory = $storageDirectory;
         $this->predefinedKeys = [];
+        $this->callsMade = [];
     }
 
     /**
@@ -76,6 +82,14 @@ class KeyValueStorageManager
     public function getStorageDirectory()
     {
         return $this->storageDirectory;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCallsMade()
+    {
+        return $this->callsMade;
     }
 
     /**
@@ -172,6 +186,7 @@ class KeyValueStorageManager
             $value = (new LocaleDependentData($value))->getValue();
         }
 
+        $this->callsMade[$key] = $value;
         return $value;
     }
 

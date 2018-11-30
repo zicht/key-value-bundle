@@ -9,8 +9,6 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
-use Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyAlreadyExistsException;
-use Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyNotFoundException;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\LocaleDependentData;
 use ZichtTest\Bundle\KeyValueBundle\Tests\KeyValueStorage\FooKeysDefiner;
@@ -129,6 +127,22 @@ class KeyValueStorageManagerTest extends WebTestCase
         $manager->addKeysDefiner(new FooKeysDefiner());
         $this->assertEquals(strrev('foo-value'), $manager->getValue('foo-key'));
         $this->assertEquals('bar-value', $manager->getValue('bar-key'));
+    }
+
+    public function testCallsMade()
+    {
+        $em = $this->getEntityManager();
+        $repo = $this->getRepository();
+        $repo->expects(self::at(0))->method('findOneBy')->with(['storageKey' => 'foo-key'])->willReturn(new KeyValueStorage());
+        $em->method('getRepository')->willReturn($repo);
+
+        $manager = new KeyValueStorageManager($em, '/tmp/web', '/tmp/web/media/key_value_storage');
+        $manager->addKeysDefiner(new FooKeysDefiner());
+
+        $manager->getValue('foo-key');
+        $manager->getValue('bar-key');
+        $manager->getValue('foo-key');
+        self::assertCount(2, $manager->getCallsMade());
     }
 
     /**
