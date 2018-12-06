@@ -8,11 +8,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 Nothing so far
 
+## 3.1.0 - 2018-12-06
+### Changed
+- Merge from 2.2.1.
+
 ## 3.0.0 - 2018-06-21
 ### Added
 - Support for Symfony 3.x and Twig 2.x
 ### Removed
 - Support for Symfony 2.x and Twig 1.x
+
+## 2.2.1 - 2018-12-06
+### Fixed
+- Minor PR feedback.
+
+## 2.2.0 - 2018-12-06
+### Changed
+- No longer checking that the `web/media/key_value_storage` directory exists,
+  instead a command and composer script is provided to create the directory
+  during the `composer install`.  See README.md for configuration instructions.
 
 ## 2.1.2 - 2018-10-16
 ### Fixed
