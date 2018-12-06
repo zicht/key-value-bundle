@@ -34,6 +34,6 @@ class ScriptHandler extends BaseScriptHandler
             return;
         }
 
-        static::executeCommand($event, $consoleDir, 'zicht:key-value:create-directory '.escapeshellarg($webDir), $options['process-timeout']);
+        static::executeCommand($event, $consoleDir, 'zicht:key-value:create-directory ' . escapeshellarg($webDir), $options['process-timeout']);
     }
 }

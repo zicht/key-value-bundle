@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 Nothing so far
 
+## 2.2.1 - 2018-12-06
+### Fixed
+- Minor PR feedback.
+
 ## 2.2.0 - 2018-12-06
 ### Changed
 - No longer checking that the `web/media/key_value_storage` directory exists,

@@ -27,7 +27,7 @@ class KeyValueCreateDirectoryCommand extends ContainerAwareCommand
                     new InputArgument('target', InputArgument::OPTIONAL, 'The target directory', 'web'),
                 ]
             )
-            ->setDescription('Ensure that the `web/media/key-value-bundle` exists');
+            ->setDescription('Ensure that the `web/media/key_value_bundle` exists');
     }
 
     /**
