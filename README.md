@@ -1,6 +1,24 @@
 # `zicht/key-value-bundle`
 A bundle that stores pre-specified key-value pairs.
 
+# Installation
+```bash
+composer require zicht/key-value-bundle
+```
+
+```json
+{
+    "scripts": {
+        "post-install-cmd": [
+            "Zicht\\Bundle\\KeyValueBundle\\Composer\\ScriptHandler::createKeyValueStorageDirectory"
+        ],
+        "post-update-cmd": [
+            "Zicht\\Bundle\\KeyValueBundle\\Composer\\ScriptHandler::createKeyValueStorageDirectory"
+        ]
+    }
+}
+```
+
 # How to
 Define a `KeysDefinerInterface` or extend `AbstractKeyDefiner` service in your own bundle and tag 
 this service with `zicht_bundle_key_value.keys_definer`

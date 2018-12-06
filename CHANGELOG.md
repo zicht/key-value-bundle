@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 Nothing so far
 
+## 2.2.1 - 2018-12-06
+### Fixed
+- Minor PR feedback.
+
+## 2.2.0 - 2018-12-06
+### Changed
+- No longer checking that the `web/media/key_value_storage` directory exists,
+  instead a command and composer script is provided to create the directory
+  during the `composer install`.  See README.md for configuration instructions.
+
 ## 2.1.2 - 2018-10-16
 ### Fixed
 - When the required directory `web/media/key_value_storage` is not available,
