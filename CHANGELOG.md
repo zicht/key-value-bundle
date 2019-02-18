@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
-Nothing so far
+### Added
+- `id` for `KeyValueBundleTwigExtension` in the service-definition
 
 ## 3.1.0 - 2018-12-06
 ### Changed
