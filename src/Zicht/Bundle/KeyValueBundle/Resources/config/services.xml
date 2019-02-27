@@ -13,7 +13,7 @@
             <argument type="string"><!-- key_value_storage dir, injected at configuration compile time --></argument>
         </service>
 
-        <service class="Zicht\Bundle\KeyValueBundle\Twig\KeyValueBundleTwigExtension">
+        <service id="zicht_bundle_key_value.twig.key_value_bundle_twig_extension" class="Zicht\Bundle\KeyValueBundle\Twig\KeyValueBundleTwigExtension">
             <argument type="service" id="zicht_bundle_key_value.key_value_storage_manager"/>
             <tag name="twig.extension"/>
         </service>
