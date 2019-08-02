@@ -6,6 +6,7 @@
 namespace Zicht\Bundle\KeyValueBundle\Twig;
 
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
+use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManagerInterface;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\PredefinedKey;
 
 /**
@@ -23,7 +24,7 @@ class KeyValueBundleTwigExtension extends \Twig_Extension
      *
      * @param KeyValueStorageManager $storageManager
      */
-    public function __construct(KeyValueStorageManager $storageManager)
+    public function __construct(KeyValueStorageManagerInterface $storageManager)
     {
         $this->storageManager = $storageManager;
     }

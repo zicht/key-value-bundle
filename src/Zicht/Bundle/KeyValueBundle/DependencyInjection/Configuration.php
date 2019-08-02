@@ -38,6 +38,13 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->arrayNode('cache')
+                    ->canBeEnabled()
+                    ->children()
+                        ->enumNode('type')->values(['service'])->end()
+                        ->scalarNode('id')->end()
+                    ->end()
+                ->end()
             ->end();
         // @formatter:on
 

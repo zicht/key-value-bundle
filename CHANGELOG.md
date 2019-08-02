@@ -6,8 +6,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
+
+## 4.0.0
 ### Added
-- `id` for `KeyValueBundleTwigExtension` in the service-definition
+- Interfaces `KeyValueStorageManagerInterface|KeyValueStorageManagerDebugInterface` to detect the StorageManager. You can no longer typehint the class itself in your DI.
+- Optional caching for KeyValueStorageManager by injecting a `Symfony\Component\Cache\Adapter\AdapterInterface`-service
+```yaml
+framework:
+    cache:
+        pools:
+            app.cache.general_apcu: # or specific: app.cache.zicht_key_value.
+                adapter: cache.adapter.apcu # can also be: `cache.app` for default filesystem cache
+                name: app.cache.general_apcu
+                public: true
+                default_lifetime: 604800 # 1 week
+
+zicht_key_value:
+    cache:
+        type: service
+        id: app.cache.general_apcu # or `cache.app` for default filesystem cache. apcu is normally also cleared on `cache:clear`
+```
+This example was used for inspiration: https://github.com/symfony/symfony/issues/24545#issuecomment-336419270
+- Collect debuginformation through Symfony's `DataCollector` and display calls to keys and values in the toolbar.
 
 ## 3.1.0 - 2018-12-06
 ### Changed

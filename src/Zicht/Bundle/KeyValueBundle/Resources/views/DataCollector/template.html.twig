@@ -1,0 +1,59 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block page_title 'Zicht KeyValue Bundle' %}
+
+{% block toolbar %}
+    {% set icon %}
+        <span class="sf-toolbar-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="48px" height="48px" preserveAspectRatio="xMidYMid meet" class="u-hidden  u-block@lg" aria-hidden="true" role="img">
+	            <path fill="currentColor" d="M32 16c0 8.8-7.2 16-16 16S0 24.8 0 16 7.2 0 16 0s16 7.2 16 16zm-21 1.9h6.1l8.7-10.6h-14l-4.3 4.4h8.6L11 17.9zm9.7 5.9l4.3-4.4H9.8l-3.6 4.4h14.5z"></path>
+            </svg>
+
+            <span class="sf-toolbar-value">{{ collector.callsMade|length }}</span>
+        </span>
+    {% endset %}
+
+    {% set text %}
+
+        {% for call, value in collector.callsMade %}
+            <div class="sf-toolbar-info-piece">
+                <b>{{ call|split('.')|last }}</b>
+                {% if value is iterable %}
+                    {% for v in value %}
+                        {{ v }}<br>
+                    {% endfor %}
+                {% else %}
+                    {{ value }}
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% endset %}
+
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { 'link': true }) }}
+{% endblock %}
+
+{% block menu %}
+    <span class="label">
+        <span class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="48px" height="48px" preserveAspectRatio="xMidYMid meet" class="u-hidden  u-block@lg" aria-hidden="true" role="img">
+	            <path fill="currentColor" d="M32 16c0 8.8-7.2 16-16 16S0 24.8 0 16 7.2 0 16 0s16 7.2 16 16zm-21 1.9h6.1l8.7-10.6h-14l-4.3 4.4h8.6L11 17.9zm9.7 5.9l4.3-4.4H9.8l-3.6 4.4h14.5z"></path>
+            </svg>
+        </span>
+        <strong>ZichtKeyValueBundle</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    <h2>Calls</h2>
+    <table>
+        <tr>
+            <th colspan="2">Call</th>
+        </tr>
+        {% for call, value in collector.callsMade %}
+            <tr>
+                <td>{{ call }}</td>
+                <td>{{ profiler_dump(value) }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

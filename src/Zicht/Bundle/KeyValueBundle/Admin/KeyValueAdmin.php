@@ -8,8 +8,10 @@ namespace Zicht\Bundle\KeyValueBundle\Admin;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
+use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManagerInterface;
 
 /**
  * Class KeyValueAdmin.
@@ -21,10 +23,13 @@ class KeyValueAdmin extends Admin
      */
     private $storageManager;
 
+    /** @var AdapterInterface */
+    private $cache;
+
     /**
      * @param KeyValueStorageManager $storageManager
      */
-    public function setStorageManager(KeyValueStorageManager $storageManager)
+    public function setStorageManager(KeyValueStorageManagerInterface $storageManager)
     {
         $this->storageManager = $storageManager;
     }
@@ -92,6 +97,16 @@ class KeyValueAdmin extends Admin
         }
     }
 
+    public function postUpdate($object)
+    {
+        $this->storageManager->purgeCachedItem($object->getStorageKey());
+    }
+
+    public function postPersist($object)
+    {
+        $this->storageManager->purgeCachedItem($object->getStorageKey());
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -104,11 +119,11 @@ class KeyValueAdmin extends Admin
                 $targetFilePath = sprintf(
                     '%s/%s%s%s%s%s_%s',
                     $this->storageManager->getStorageDirectory(),
-                    chr(rand(97,122)),
-                    chr(rand(97,122)),
-                    chr(rand(97,122)),
-                    chr(rand(97,122)),
-                    chr(rand(97,122)),
+                    chr(rand(97, 122)),
+                    chr(rand(97, 122)),
+                    chr(rand(97, 122)),
+                    chr(rand(97, 122)),
+                    chr(rand(97, 122)),
                     $value->getClientOriginalName()
                 );
             } while (file_exists($targetFilePath));

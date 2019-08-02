@@ -6,7 +6,9 @@
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
 use Doctrine\Common\Persistence\ObjectRepository;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyAlreadyExistsException;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyNotFoundException;
@@ -17,8 +19,11 @@ use Zicht\Itertools as iter;
  *
  * This class is responsible for handling questions in the parameters-domain.
  */
-class KeyValueStorageManager
+final class KeyValueStorageManager implements KeyValueStorageManagerInterface
 {
+    /** @var string */
+    const CACHE_TAG = 'zicht_bundle_key_value';
+
     /**
      * Holds all added predefined keys.
      * Predefind keys are added with self#addKeysDefiner.
@@ -44,18 +49,25 @@ class KeyValueStorageManager
     private $storageDirectory;
 
     /**
+     * @var AdapterInterface|null
+     */
+    private $cacheItemPool;
+
+    /**
      * KeyValueStorageManager constructor.
      *
      * @param RegistryInterface $registry
      * @param string $webDirectory
      * @param string $storageDirectory
+     * @param CacheItemPoolInterface $cacheItemPool
      */
-    public function __construct(RegistryInterface $registry, $webDirectory, $storageDirectory)
+    public function __construct(RegistryInterface $registry, $webDirectory, $storageDirectory, CacheItemPoolInterface $cacheItemPool = null)
     {
         $this->registry = $registry;
         $this->webDirectory = $webDirectory;
         $this->storageDirectory = $storageDirectory;
         $this->predefinedKeys = [];
+        $this->cacheItemPool = $cacheItemPool;
     }
 
     /**
@@ -156,8 +168,17 @@ class KeyValueStorageManager
      * @return array|mixed
      * @throws KeyNotFoundException
      */
-    public function getValue($key)
+    public function getValue(string $key)
     {
+        $cacheItem = null;
+        if ($this->cacheItemPool) {
+            $cacheItem = $this->cacheItemPool->getItem($this->createCacheKey($key));
+            $cacheItem->tag(self::CACHE_TAG);
+            if ($cacheItem->isHit()) {
+                return $cacheItem->get();
+            }
+        }
+
         if ($entity = $this->getEntity($key)) {
             $value = $entity->getStorageValue();
         } else {
@@ -172,7 +193,19 @@ class KeyValueStorageManager
             $value = (new LocaleDependentData($value))->getValue();
         }
 
+        if ($cacheItem) {
+            $cacheItem->set($value);
+            $this->cacheItemPool->save($cacheItem);
+        }
+
         return $value;
+    }
+
+    public function purgeCachedItem(string $key): void
+    {
+        if ($this->cacheItemPool) {
+            $this->cacheItemPool->deleteItem($this->createCacheKey($key));
+        }
     }
 
     /**
@@ -237,5 +270,10 @@ class KeyValueStorageManager
     private function getRepository()
     {
         return $this->registry->getRepository('ZichtKeyValueBundle:KeyValueStorage');
+    }
+
+    private function createCacheKey(string $key): string
+    {
+        return sprintf('%s.%s', self::CACHE_TAG, $key);
     }
 }

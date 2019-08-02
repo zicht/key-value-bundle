@@ -80,7 +80,13 @@ zicht_key_value:
             label: Engels
     defaults:
         zicht.foo_bundle.display_almost_soldout_threshold: 200
+    cache:
+        type: service
+        id: cache.app # or another service you have defined
 ```
+
+# Cache
+If enabled, cached items are prefixed with `KeyValueStorageManager::CACHE_TAG` and tagged with `KeyValueStorageManager::CACHE_TAG`.
 
 # Service
 If you want to use the key value storage at any place in your code. A storage 
