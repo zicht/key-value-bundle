@@ -2,11 +2,13 @@ admin:
     label:
         keyvaluemenu_item: Generic config
 list:
+    add: Add
     label_storage_key: Key
     label_storage_value: Value
     label_friendly_name: Addendum
     no_value: No actual value
     default_values: Default values
+    default_values_description: The values below are preconfigured. They can be altered by adding new configurationrules.
 
 breadcrumb:
   link_key_value_storage_list: Generic config
@@ -14,3 +16,7 @@ breadcrumb:
 form:
   label_storage_key: Key
   label_storage_value: Value
+
+filter:
+    label_storage_key: Setting
+    label_storage_value: Value

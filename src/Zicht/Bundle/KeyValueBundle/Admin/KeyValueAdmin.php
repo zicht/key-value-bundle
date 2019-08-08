@@ -6,6 +6,7 @@
 namespace Zicht\Bundle\KeyValueBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
@@ -41,9 +42,9 @@ class KeyValueAdmin extends Admin
     {
         parent::configureListFields($list);
         $list
-            ->add('storageKey')
-            ->add('friendlyName', null, ['template' => 'ZichtKeyValueBundle:Admin:cell_friendlyName.html.twig'])
+            ->add('storageKey', null, ['template' => 'ZichtKeyValueBundle:Admin:cell_storageKey.html.twig'])
             ->add('storageValue', null, ['template' => 'ZichtKeyValueBundle:Admin:cell_storageValue.html.twig'])
+            ->add('friendlyName', null, ['template' => 'ZichtKeyValueBundle:Admin:cell_friendlyName.html.twig'])
             ->add(
                 '_action',
                 'actions',
@@ -54,6 +55,15 @@ class KeyValueAdmin extends Admin
                     ],
                 ]
             );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function configureDatagridFilters(DatagridMapper $filter)
+    {
+        parent::configureDatagridFilters($filter);
+        $filter->add('storageKey')->add('storageValue');
     }
 
     /**
@@ -79,7 +89,8 @@ class KeyValueAdmin extends Admin
             foreach ($this->storageManager->getMissingDBKeys() as $value) {
                 $choices[$value] = $value;
             }
-            $form->add('storageKey', 'choice', ['choices' => $choices, 'choices_as_values' => true]);
+            $preferedKey = urldecode($this->getRequest()->query->get('key'));
+            $form->add('storageKey', 'choice', ['choices' => $choices, 'choices_as_values' => true, 'data' => $preferedKey]);
             // disable storageValue because we must first select a key for us to know the value type
             $form->add('storageValue', 'text', ['attr' => ['readonly' => true]]);
         }
@@ -104,6 +115,11 @@ class KeyValueAdmin extends Admin
     }
 
     public function postPersist($object)
+    {
+        $this->storageManager->purgeCachedItem($object->getStorageKey());
+    }
+
+    public function postRemove($object)
     {
         $this->storageManager->purgeCachedItem($object->getStorageKey());
     }
