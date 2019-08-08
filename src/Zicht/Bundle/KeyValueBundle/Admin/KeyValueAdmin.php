@@ -99,6 +99,7 @@ class KeyValueAdmin extends Admin
 
     public function postUpdate($object)
     {
+        // could also be implemented with doctrine lifecycle callbacks.
         $this->storageManager->purgeCachedItem($object->getStorageKey());
     }
 
