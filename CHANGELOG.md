@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 4.0.1
+### Fixed
+- Overlooked a cachepurge after deleting a stored key from the database.
+### Changed
+- Misc. UI-improvements.
+
 ## 4.0.0
 ### Added
 - Interfaces `KeyValueStorageManagerInterface|KeyValueStorageManagerDebugInterface` to detect the StorageManager. You can no longer typehint the class itself in your DI.

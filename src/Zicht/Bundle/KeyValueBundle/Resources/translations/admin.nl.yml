@@ -2,10 +2,12 @@ admin:
     label:
         keyvaluemenu_item: Generieke configuratie
 list:
+    add: Toevoegen
     label_storage_key: Setting
     label_storage_value: Waarde
     label_friendly_name: Toelichting
     default_values: Standaard waarden
+    default_values_description: Onderstaande waarden zijn vooraf geconfigureerd. Ze kunnen worden aangepast door een nieuwe configuratieregel toe te voegen met een andere waarde.
 
 breadcrumb:
   link_key_value_storage_list: Generieke configuratie
@@ -13,3 +15,7 @@ breadcrumb:
 form:
   label_storage_key: Setting
   label_storage_value: Waarde
+
+filter:
+    label_storage_key: Setting
+    label_storage_value: Waarde

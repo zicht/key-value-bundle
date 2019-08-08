@@ -5,27 +5,50 @@
 {% block list_table %}
     {{ parent() }}
 
+    {% set missing_db_values = getMissingDBValues() %}
+    {% if missing_db_values|length > 0 %}
 
-    <div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th colspan="3"><h3>{{ 'list.default_values'|trans }}</h3></th>
-            </tr>
-            <tr>
-                <th>{{ 'list.label_storage_key'|trans }}</th>
-                <th>{{ 'list.label_friendly_name'|trans }}</th>
-                <th>{{ 'list.label_storage_value'|trans }}</th>
-            </tr>
-            </thead>
-            {% for key in getMissingDBValues() %}
-                {% set predefinedKey = getPredefinedKey(key) %}
-                <tr>
-                    <td>{{ predefinedKey.key }}</td>
-                    <td>{{ predefinedKey.friendlyName }}</td>
-                    <td>{{ predefinedKey.value|json_encode }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
+        <div class="col-xs-12 col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ 'list.default_values'|trans }}</h3>
+                </div>
+
+                <div class="panel-body">
+                    {{ 'list.default_values_description'|trans }}
+                </div>
+
+                <table class="table table-bordered table-striped table-hover sonata-ba-list">
+                    <thead>
+                    <tr>
+                        <th/>
+                        <th class="sonata-ba-list-field-header-text ">{{ 'list.label_storage_key'|trans }}</th>
+                        <th class="sonata-ba-list-field-header-text ">{{ 'list.label_storage_value'|trans }}</th>
+                        <th class="sonata-ba-list-field-header-text ">{{ 'list.label_friendly_name'|trans }}</th>
+                        <th/>
+                    </tr>
+                    </thead>
+                    {% for key in missing_db_values %}
+                        {% set predefinedKey = getPredefinedKey(key) %}
+                        <tr>
+                            <td>#</td>
+                            <td class="sonata-ba-list-field sonata-ba-list-field-text"><span
+                                        title="{{ predefinedKey.key }}">{{ predefinedKey.key|split('.')|last }}</span>
+                            </td>
+                            <td class="sonata-ba-list-field sonata-ba-list-field-text">{{ predefinedKey.value|json_encode }}</td>
+                            <td class="sonata-ba-list-field sonata-ba-list-field-text">{{ predefinedKey.friendlyName }}</td>
+                            <td>
+                                <a href="{{ admin.generateUrl('create') }}?key={{ predefinedKey.key|url_encode }}" class="btn btn-sm btn-default edit_link" title="{{ 'link_action_create'|trans({}, 'SonataAdminBundle')|lower }}">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    {{ 'list.add'|trans }}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
