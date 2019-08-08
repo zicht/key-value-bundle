@@ -77,4 +77,10 @@ class KeyValueStorage
     {
         $this->storageValue = $storageValue;
     }
+
+    public function __toString()
+    {
+        return $this->getStorageKey();
+    }
+
 }

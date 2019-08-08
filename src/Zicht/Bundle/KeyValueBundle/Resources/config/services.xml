@@ -11,6 +11,7 @@
             <argument type="service" id="doctrine"/>
             <argument type="string"><!-- web dir, injected at configuration compile time --></argument>
             <argument type="string"><!-- key_value_storage dir, injected at configuration compile time --></argument>
+            <argument>null</argument><!-- possibly replaced with a cache-service -->
         </service>
 
         <service id="zicht_bundle_key_value.twig.key_value_bundle_twig_extension" class="Zicht\Bundle\KeyValueBundle\Twig\KeyValueBundleTwigExtension">
@@ -21,6 +22,19 @@
         <service id="zicht_bundle_key_value.event_listener.localization_listener" class="Zicht\Bundle\KeyValueBundle\EventListener\LocalizationListener">
             <argument type="collection"/> <!-- the available locales are supplied through dependency injection -->
             <tag name="kernel.event_listener" event="kernel.request"/>
+        </service>
+
+        <service id="Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManagerDebugWrapper"
+                 decorates="zicht_bundle_key_value.key_value_storage_manager"
+                 public="false">
+            <argument type="service" id="Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManagerDebugWrapper.inner"/>
+        </service>
+
+        <service class="Zicht\Bundle\KeyValueBundle\DataCollector\KeyValueBundleDataCollector"
+                 id="zicht_bundle_key_value.data_collector.key_value_bundle_data_collector"
+                 public="false">
+            <argument type="service" id="zicht_bundle_key_value.key_value_storage_manager"/>
+            <tag name="data_collector" template="ZichtKeyValueBundle:DataCollector:template.html.twig" id="zicht_key_value"/>
         </service>
 
     </services>

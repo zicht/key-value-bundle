@@ -27,6 +27,11 @@ class KeysDefinerCompilerPass implements CompilerPassInterface
             if (array_key_exists('defaults', $config)) {
                 $defaults = array_merge($defaults, $config['defaults']);
             }
+            if (array_key_exists('cache', $config) && 'service' === $config['cache']['type']) {
+                $cacheService = new Reference($config['cache']['id']);
+                $container->getDefinition('zicht_bundle_key_value.key_value_storage_manager')
+                    ->replaceArgument(3, $cacheService);
+            }
         }
 
         $definition = $container->getDefinition('zicht_bundle_key_value.key_value_storage_manager');
@@ -34,6 +39,10 @@ class KeysDefinerCompilerPass implements CompilerPassInterface
         foreach ($taggedServices as $id => $attributes) {
             $container->getDefinition($id)->addMethodCall('setDefaultValues', [$defaults]);
             $definition->addMethodCall('addKeysDefiner', array(new Reference($id)));
+        }
+
+        if (!$container->getParameter('kernel.debug')) {
+            $container->removeDefinition('Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManagerDebugWrapper');
         }
     }
 }
