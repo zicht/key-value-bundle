@@ -22,7 +22,7 @@ class LocaleDependentData
     /**
      * The locale is set from the request, using a KernelListener
      *
-     * @param $locale
+     * @param string $locale
      */
     public static function setLocale($locale)
     {

@@ -10,13 +10,10 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Class KeyValueCreateDirectoryCommand
- */
 class KeyValueCreateDirectoryCommand extends ContainerAwareCommand
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function configure()
     {
@@ -31,7 +28,7 @@ class KeyValueCreateDirectoryCommand extends ContainerAwareCommand
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

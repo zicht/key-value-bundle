@@ -9,21 +9,16 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
-use Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyAlreadyExistsException;
-use Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyNotFoundException;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\LocaleDependentData;
 use ZichtTest\Bundle\KeyValueBundle\Tests\KeyValueStorage\FooKeysDefiner;
 
 require 'FooKeysDefiner.php';
 
-/**
- * Class KeyValueStorageManagerTest.
- */
 class KeyValueStorageManagerTest extends WebTestCase
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public static function setUpBeforeClass()
     {
@@ -146,5 +141,4 @@ class KeyValueStorageManagerTest extends WebTestCase
     {
         return $this->getMockBuilder(ObjectRepository::class)->disableOriginalConstructor()->getMock();
     }
-
 }

@@ -5,9 +5,6 @@
 
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
-/**
- * Interface KeysDefinerInterface.
- */
 interface KeysDefinerInterface
 {
     /**
