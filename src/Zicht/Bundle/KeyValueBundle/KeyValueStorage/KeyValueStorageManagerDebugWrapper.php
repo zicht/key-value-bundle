@@ -23,11 +23,16 @@ class KeyValueStorageManagerDebugWrapper implements KeyValueStorageManagerInterf
         $this->callsMade = [];
     }
 
-    public function getCallsMade()
+    public function getCallsMade(): array
     {
         return $this->callsMade;
     }
 
+    /**
+     * @param string $key
+     * @return mixed
+     * @throws Exception\KeyNotFoundException
+     */
     public function getValue(string $key)
     {
         $value = $this->keyValueStorageManager->getValue($key);
@@ -35,13 +40,18 @@ class KeyValueStorageManagerDebugWrapper implements KeyValueStorageManagerInterf
         return $value;
     }
 
-    public function purgeCachedItem(string $key)
+    public function purgeCachedItem(string $key): void
     {
         return $this->keyValueStorageManager->purgeCachedItem($key);
     }
 
+    /**
+     * @param string $name
+     * @param mixed $arguments
+     * @return mixed
+     */
     public function __call($name, $arguments)
     {
-        return call_user_func_array(array($this->keyValueStorageManager, $name), $arguments);
+        return call_user_func_array([$this->keyValueStorageManager, $name], $arguments);
     }
 }

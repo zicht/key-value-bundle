@@ -36,7 +36,6 @@ class KeyValueBundleDataCollector extends DataCollector implements LateDataColle
      */
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
-
     }
 
     /**
@@ -70,5 +69,4 @@ class KeyValueBundleDataCollector extends DataCollector implements LateDataColle
     {
         return $this->data['key_value_calls'] ?? [];
     }
-
 }

@@ -7,5 +7,5 @@ namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
 interface KeyValueStorageManagerDebugInterface
 {
-    public function getCallsMade();
+    public function getCallsMade(): array;
 }

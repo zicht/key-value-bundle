@@ -8,9 +8,6 @@ namespace Zicht\Bundle\KeyValueBundle\EventListener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\LocaleDependentData;
 
-/**
- * Class LocalizationListener
- */
 class LocalizationListener
 {
     /** @var string[] */

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 4.0.2
+### Fixed
+- Update codestyle and require at least php `7.1`
+
 ## 4.0.1
 ### Fixed
 - Overlooked a cachepurge after deleting a stored key from the database.

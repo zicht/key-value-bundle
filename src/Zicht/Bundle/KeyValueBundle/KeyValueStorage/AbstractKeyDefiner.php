@@ -5,11 +5,6 @@
 
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
-/**
- * Class AbstractKeyDefiner
- *
- * @package Zicht\Bundle\KeyValueBundle\KeyValueStorage
- */
 abstract class AbstractKeyDefiner implements KeysDefinerInterface
 {
     /**

@@ -8,7 +8,6 @@ namespace Zicht\Bundle\KeyValueBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class KeyValue
  * @final
  *
  * @ORM\Entity()
@@ -18,7 +17,6 @@ class KeyValueStorage
 {
     /**
      * @var int
-     *
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -33,7 +31,6 @@ class KeyValueStorage
 
     /**
      * @var array
-     *
      * @ORM\Column(type="json_array", nullable=true)
      */
     private $storageValue;
@@ -78,9 +75,11 @@ class KeyValueStorage
         $this->storageValue = $storageValue;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getStorageKey();
     }
-
 }

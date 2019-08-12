@@ -37,10 +37,8 @@ class PredefinedKey
     }
 
     /**
-     * The unique identifier for this key.
+     * @var string The unique identifier for this key.
      * E.g.: "vendor.bundle.domain.key"
-     *
-     * @var string
      */
     private $key;
 
@@ -50,23 +48,17 @@ class PredefinedKey
     private $value;
 
     /**
-     * Humanly readable representation of what this key is.
-     *
-     * @var string
+     * @var string Humanly readable representation of what this key is.
      */
     private $friendlyName;
 
     /**
-     * Form type to use when storing the value
-     *
-     * @var string
+     * @var string Form type to use when storing the value
      */
     private $formType;
 
     /**
-     * Form options to use when storing the value
-     *
-     * @var array
+     * @var array Form options to use when storing the value
      */
     private $formOptions;
 

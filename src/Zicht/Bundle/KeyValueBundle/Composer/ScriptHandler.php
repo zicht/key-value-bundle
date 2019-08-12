@@ -9,9 +9,6 @@ use Composer\Script\Event;
 use Composer\Installer\PackageEvent;
 use Sensio\Bundle\DistributionBundle\Composer\ScriptHandler as BaseScriptHandler;
 
-/**
- * Class ScriptHandler
- */
 class ScriptHandler extends BaseScriptHandler
 {
     /**

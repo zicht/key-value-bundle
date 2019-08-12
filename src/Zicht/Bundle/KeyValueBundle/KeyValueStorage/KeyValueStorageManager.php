@@ -25,11 +25,9 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
     const CACHE_TAG = 'zicht_bundle_key_value';
 
     /**
-     * Holds all added predefined keys.
+     * @var PredefinedKey[] Holds all added predefined keys.
      * Predefind keys are added with self#addKeysDefiner.
      * This array will have Predefined->getKey() as index.
-     *
-     * @var PredefinedKey[]
      */
     private $predefinedKeys;
 
@@ -54,8 +52,6 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
     private $cacheItemPool;
 
     /**
-     * KeyValueStorageManager constructor.
-     *
      * @param RegistryInterface $registry
      * @param string $webDirectory
      * @param string $storageDirectory
@@ -112,8 +108,6 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
     }
 
     /**
-     * Get a PredefinedKey.
-     *
      * @param string $key
      * @return mixed|PredefinedKey
      * @throws KeyNotFoundException
@@ -136,7 +130,7 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
     {
         foreach ($keysDefiner->getPredefinedKeys() as $predefinedKey) {
             if (array_key_exists($predefinedKey->getKey(), $this->predefinedKeys)) {
-                throw new KeyAlreadyExistsException(sprintf("The key %s is already added", $predefinedKey->getKey()));
+                throw new KeyAlreadyExistsException(sprintf('The key %s is already added', $predefinedKey->getKey()));
             }
             $this->predefinedKeys[$predefinedKey->getKey()] = $predefinedKey;
         }
@@ -214,8 +208,8 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
      * This will _always_ result in having a KeyValueStorage entity.
      * When a new Entity is created, it is only persisted, but not stored in the DB!
      *
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param mixed $value
      * @return KeyValueStorage
      */
     public function saveValue($key, $value)

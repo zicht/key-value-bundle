@@ -10,6 +10,9 @@ use Zicht\Bundle\KeyValueBundle\KeyValueStorage\PredefinedKey;
 
 class FooKeysDefiner extends AbstractKeyDefiner
 {
+    /**
+     * @return array|PredefinedKey[]
+     */
     public function getPredefinedKeys()
     {
         return [

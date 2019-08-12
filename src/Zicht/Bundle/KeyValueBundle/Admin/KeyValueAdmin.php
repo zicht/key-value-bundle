@@ -14,9 +14,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManagerInterface;
 
-/**
- * Class KeyValueAdmin.
- */
 class KeyValueAdmin extends Admin
 {
     /**
@@ -108,17 +105,26 @@ class KeyValueAdmin extends Admin
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function postUpdate($object)
     {
         // could also be implemented with doctrine lifecycle callbacks.
         $this->storageManager->purgeCachedItem($object->getStorageKey());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function postPersist($object)
     {
         $this->storageManager->purgeCachedItem($object->getStorageKey());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function postRemove($object)
     {
         $this->storageManager->purgeCachedItem($object->getStorageKey());

@@ -9,9 +9,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class LocaleDependentDataType
- */
 class LocaleDependentDataType extends AbstractType
 {
     /** @var array[] */
@@ -26,7 +23,7 @@ class LocaleDependentDataType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -35,7 +32,7 @@ class LocaleDependentDataType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -45,7 +42,7 @@ class LocaleDependentDataType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getParent()
     {
@@ -53,7 +50,7 @@ class LocaleDependentDataType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getName()
     {
