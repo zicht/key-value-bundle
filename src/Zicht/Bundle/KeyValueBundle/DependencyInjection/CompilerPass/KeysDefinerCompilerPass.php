@@ -24,6 +24,9 @@ class KeysDefinerCompilerPass implements CompilerPassInterface
         // merge possibly multiple config yml files into one $defaults array
         $defaults = [];
         foreach ($container->getExtensionConfig('zicht_key_value') as $config) {
+            if (array_key_exists('json_defaults', $config)) {
+                $defaults = array_merge($defaults, array_map([$this, 'jsonDecode'], $config['json_defaults']));
+            }
             if (array_key_exists('defaults', $config)) {
                 $defaults = array_merge($defaults, $config['defaults']);
             }
@@ -35,5 +38,16 @@ class KeysDefinerCompilerPass implements CompilerPassInterface
             $container->getDefinition($id)->addMethodCall('setDefaultValues', [$defaults]);
             $definition->addMethodCall('addKeysDefiner', array(new Reference($id)));
         }
+    }
+
+    /**
+     * Decode the json encoded string
+     *
+     * @param string $value
+     * @return mixed
+     */
+    private function jsonDecode($value)
+    {
+        return json_decode($value, true);
     }
 }
