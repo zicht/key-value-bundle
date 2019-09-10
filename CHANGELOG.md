@@ -43,7 +43,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - A new form type `zicht_locale_dependent_type`, values stored in this type are
   automatically requested in multiple configurable locales.  Retrieving the value for
-  one of these types results in the value for the current locale. 
+  one of these types results in the value for the current locale.
 
 ## 2.0.2 - 2018-01-10
 ### Changed
@@ -61,7 +61,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.2.0 - 2017-07-24
 ### Added
-- Save a key through the StorageManager with `saveKey` 
+- Save a key through the StorageManager with `saveKey`
 
 ## 1.1.0 - 2017-07-19
 ### Added
