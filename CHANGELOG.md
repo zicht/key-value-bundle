@@ -6,8 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
+
+## 3.2.0 - 2019-09-12
 ### Added
-- `id` for `KeyValueBundleTwigExtension` in the service-definition
+- Forward merge from 2.2.2.
 
 ## 3.1.0 - 2018-12-06
 ### Changed
@@ -18,6 +20,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Support for Symfony 3.x and Twig 2.x
 ### Removed
 - Support for Symfony 2.x and Twig 1.x
+
+## 2.2.2 - 2019-09-10
+### Fixed
+- The defaults values in yaml now also support json data.
+  This is essential for the locale dependent type.
+
+  ```yaml
+  zicht_key_value:
+      json_defaults:
+          homepage: '{"nl":"/nl/thuis","en":"/en/home"}'
+  ```
 
 ## 2.2.1 - 2018-12-06
 ### Fixed

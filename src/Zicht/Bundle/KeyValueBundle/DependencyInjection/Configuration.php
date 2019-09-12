@@ -24,6 +24,9 @@ class Configuration implements ConfigurationInterface
         // @formatter:off
         $rootNode
             ->children()
+                ->arrayNode('json_defaults')
+                    ->prototype('scalar')->end()
+                ->end()
                 ->arrayNode('defaults')
                     ->prototype('scalar')->end()
                 ->end()
