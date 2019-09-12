@@ -78,8 +78,10 @@ zicht_key_value:
         -
             locale: en
             label: Engels
+    json_defaults:
+        zicht.foo_bundle.homepage_url: '{"nl":"/nl/thuis","en":"/en/home"}'
     defaults:
-        zicht.foo_bundle.display_almost_soldout_threshold: 200
+        zicht.foo_bundle.display_threshold: 200
     cache:
         type: service
         id: cache.app # or another service you have defined

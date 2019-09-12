@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 4.1.0 - 2019-09-12
+### Added
+- Forward merge from 2.2.2 and 3.2.0.
+
 ## 4.0.2
 ### Fixed
 - Update codestyle and require at least php `7.1`
@@ -39,6 +43,10 @@ zicht_key_value:
 This example was used for inspiration: https://github.com/symfony/symfony/issues/24545#issuecomment-336419270
 - Collect debuginformation through Symfony's `DataCollector` and display calls to keys and values in the toolbar.
 
+## 3.2.0 - 2019-09-12
+### Added
+- Forward merge from 2.2.2.
+
 ## 3.1.0 - 2018-12-06
 ### Changed
 - Merge from 2.2.1.
@@ -48,6 +56,17 @@ This example was used for inspiration: https://github.com/symfony/symfony/issues
 - Support for Symfony 3.x and Twig 2.x
 ### Removed
 - Support for Symfony 2.x and Twig 1.x
+
+## 2.2.2 - 2019-09-10
+### Fixed
+- The defaults values in yaml now also support json data.
+  This is essential for the locale dependent type.
+
+  ```yaml
+  zicht_key_value:
+      json_defaults:
+          homepage: '{"nl":"/nl/thuis","en":"/en/home"}'
+  ```
 
 ## 2.2.1 - 2018-12-06
 ### Fixed
