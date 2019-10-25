@@ -42,7 +42,7 @@ class KeyValueStorageManagerDebugWrapper implements KeyValueStorageManagerInterf
 
     public function purgeCachedItem(string $key): void
     {
-        return $this->keyValueStorageManager->purgeCachedItem($key);
+        $this->keyValueStorageManager->purgeCachedItem($key);
     }
 
     /**

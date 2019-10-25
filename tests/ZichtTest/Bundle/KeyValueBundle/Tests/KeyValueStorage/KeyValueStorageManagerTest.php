@@ -7,15 +7,15 @@ namespace ZichtTest\Bundle\KeyValueBundle\KeyValueStorage\Tests;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\LocaleDependentData;
 use ZichtTest\Bundle\KeyValueBundle\Tests\KeyValueStorage\FooKeysDefiner;
+use PHPUnit\Framework\TestCase;
 
 require 'FooKeysDefiner.php';
 
-class KeyValueStorageManagerTest extends WebTestCase
+class KeyValueStorageManagerTest extends TestCase
 {
     /**
      * {@inheritDoc}

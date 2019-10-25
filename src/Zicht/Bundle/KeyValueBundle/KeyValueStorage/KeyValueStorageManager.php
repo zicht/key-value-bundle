@@ -159,7 +159,7 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
      * Either the DB-value or the default value.
      *
      * @param string $key
-     * @return array|mixed
+     * @return mixed
      * @throws KeyNotFoundException
      */
     public function getValue(string $key)

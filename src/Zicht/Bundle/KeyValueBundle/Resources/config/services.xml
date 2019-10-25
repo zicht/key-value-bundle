@@ -14,6 +14,8 @@
             <argument>null</argument><!-- possibly replaced with a cache-service -->
         </service>
 
+        <service alias="zicht_bundle_key_value.key_value_storage_manager" id="Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManagerInterface"/>
+
         <service id="zicht_bundle_key_value.twig.key_value_bundle_twig_extension" class="Zicht\Bundle\KeyValueBundle\Twig\KeyValueBundleTwigExtension">
             <argument type="service" id="zicht_bundle_key_value.key_value_storage_manager"/>
             <tag name="twig.extension"/>
@@ -34,7 +36,7 @@
                  id="zicht_bundle_key_value.data_collector.key_value_bundle_data_collector"
                  public="false">
             <argument type="service" id="zicht_bundle_key_value.key_value_storage_manager"/>
-            <tag name="data_collector" template="ZichtKeyValueBundle:DataCollector:template.html.twig" id="zicht_key_value"/>
+            <tag name="data_collector" template="@ZichtKeyValue/DataCollector/template.html.twig" id="zicht_key_value"/>
         </service>
 
     </services>

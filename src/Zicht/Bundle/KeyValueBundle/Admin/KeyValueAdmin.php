@@ -10,6 +10,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManagerInterface;
@@ -39,9 +41,9 @@ class KeyValueAdmin extends Admin
     {
         parent::configureListFields($list);
         $list
-            ->add('storageKey', null, ['template' => 'ZichtKeyValueBundle:Admin:cell_storageKey.html.twig'])
-            ->add('storageValue', null, ['template' => 'ZichtKeyValueBundle:Admin:cell_storageValue.html.twig'])
-            ->add('friendlyName', null, ['template' => 'ZichtKeyValueBundle:Admin:cell_friendlyName.html.twig'])
+            ->add('storageKey', null, ['template' => '@ZichtKeyValue/Admin/cell_storageKey.html.twig'])
+            ->add('storageValue', null, ['template' => '@ZichtKeyValue/Admin/cell_storageValue.html.twig'])
+            ->add('friendlyName', null, ['template' => '@ZichtKeyValue/Admin/cell_friendlyName.html.twig'])
             ->add(
                 '_action',
                 'actions',
@@ -71,7 +73,7 @@ class KeyValueAdmin extends Admin
         $subject = $this->getSubject();
 
         if ($subject && $subject->getId()) {
-            $form->add('storageKey', 'text', ['attr' => ['readonly' => true]]);
+            $form->add('storageKey', TextType::class, ['attr' => ['readonly' => true]]);
             if ($this->storageManager->hasPredefinedKey($subject->getStorageKey())) {
                 $predefinedKey = $this->storageManager->getPredefinedKey($subject->getStorageKey());
                 $formType = $predefinedKey->getFormType();
@@ -87,9 +89,9 @@ class KeyValueAdmin extends Admin
                 $choices[$value] = $value;
             }
             $preferedKey = urldecode($this->getRequest()->query->get('key'));
-            $form->add('storageKey', 'choice', ['choices' => $choices, 'choices_as_values' => true, 'data' => $preferedKey]);
+            $form->add('storageKey', ChoiceType::class, ['choices' => $choices, 'data' => $preferedKey]);
             // disable storageValue because we must first select a key for us to know the value type
-            $form->add('storageValue', 'text', ['attr' => ['readonly' => true]]);
+            $form->add('storageValue', TextType::class, ['attr' => ['readonly' => true]]);
         }
     }
 
