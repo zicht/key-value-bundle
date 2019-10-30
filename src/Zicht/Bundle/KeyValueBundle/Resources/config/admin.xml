@@ -20,7 +20,7 @@
             </call>
             <call method="setTemplate">
                 <argument>list</argument>
-                <argument>ZichtKeyValueBundle:Admin:list.html.twig</argument>
+                <argument>@ZichtKeyValue/Admin/list.html.twig</argument>
             </call>
         </service>
     </services>
