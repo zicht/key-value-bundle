@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 4.2.1 - 2019-12-20
+### Fixed
+- Compatibility with Symfony 4 by fixing a few deprecations.
+
 ## 4.2.0 - 2019-10-25
 ### Fixed
 - Compatibility with Symfony 4 by fixing a few minor bugs.
