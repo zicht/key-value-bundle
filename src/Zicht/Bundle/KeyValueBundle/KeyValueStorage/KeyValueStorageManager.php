@@ -6,8 +6,8 @@
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
 use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Psr\Cache\CacheItemPoolInterface;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyAlreadyExistsException;
@@ -32,7 +32,7 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
     private $predefinedKeys;
 
     /**
-     * @var RegistryInterface
+     * @var ManagerRegistry
      */
     private $registry;
 
@@ -52,12 +52,12 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
     private $cacheItemPool;
 
     /**
-     * @param RegistryInterface $registry
+     * @param ManagerRegistry $registry
      * @param string $webDirectory
      * @param string $storageDirectory
      * @param CacheItemPoolInterface $cacheItemPool
      */
-    public function __construct(RegistryInterface $registry, $webDirectory, $storageDirectory, CacheItemPoolInterface $cacheItemPool = null)
+    public function __construct(ManagerRegistry $registry, $webDirectory, $storageDirectory, CacheItemPoolInterface $cacheItemPool = null)
     {
         $this->registry = $registry;
         $this->webDirectory = $webDirectory;

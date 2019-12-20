@@ -6,7 +6,7 @@
 namespace ZichtTest\Bundle\KeyValueBundle\KeyValueStorage\Tests;
 
 use Doctrine\Common\Persistence\ObjectRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\LocaleDependentData;
@@ -127,11 +127,11 @@ class KeyValueStorageManagerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|RegistryInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|ManagerRegistry
      */
     private function getEntityManager()
     {
-        return $this->getMockBuilder(RegistryInterface::class)->disableOriginalConstructor()->getMock();
+        return $this->getMockBuilder(ManagerRegistry::class)->disableOriginalConstructor()->getMock();
     }
 
     /**
