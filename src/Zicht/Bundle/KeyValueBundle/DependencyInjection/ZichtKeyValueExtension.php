@@ -29,10 +29,10 @@ class ZichtKeyValueExtension extends Extension
         $loader->load('form_types.xml');
         $loader->load('services.xml');
 
-        $rootDir = $container->getParameter('kernel.root_dir');
+        $projectDir = $container->getParameter('kernel.project_dir');
         $container->getDefinition('zicht_bundle_key_value.key_value_storage_manager')
-            ->replaceArgument(1, sprintf('%s/%s', $rootDir, '../web'))
-            ->replaceArgument(2, sprintf('%s/%s', $rootDir, '../web/media/key_value_storage'));
+            ->replaceArgument(1, sprintf('%s..%s', $projectDir, $config['paths']['web']))
+            ->replaceArgument(2, sprintf('%s..%s', $projectDir, $config['paths']['storage']));
 
         $container->getDefinition('zicht_bundle_key_value.form_type.locale_dependent_data_type')
             ->replaceArgument(0, $config['locales']);
