@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 4.2.2 - 2020-02-20
+### Fixed
+- Hardcoded key value storage column name as Doctrine doesn't accept camelCase column names by default and tries the snake_case variant
+
 ## 4.2.1 - 2019-12-20
 ### Fixed
 - Compatibility with Symfony 4 by fixing a few deprecations.

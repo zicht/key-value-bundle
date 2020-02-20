@@ -25,13 +25,13 @@ class KeyValueStorage
 
     /**
      * @var string
-     * @ORM\Column
+     * @ORM\Column(name="storageKey", type="string")
      */
     private $storageKey;
 
     /**
      * @var array
-     * @ORM\Column(type="json_array", nullable=true)
+     * @ORM\Column(name="storageValue", type="json_array", nullable=true)
      */
     private $storageValue;
 
