@@ -39,5 +39,15 @@
             <tag name="data_collector" template="@ZichtKeyValue/DataCollector/template.html.twig" id="zicht_key_value"/>
         </service>
 
+        <service id="Zicht\Bundle\KeyValueBundle\Command\KeyValueCreateDirectoryCommand">
+            <argument type="service" id="filesystem"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="Zicht\Bundle\KeyValueBundle\Command\ListCommand">
+            <argument type="service" id="zicht_bundle_key_value.key_value_storage_manager"/>
+            <tag name="console.command"/>
+        </service>
+
     </services>
 </container>

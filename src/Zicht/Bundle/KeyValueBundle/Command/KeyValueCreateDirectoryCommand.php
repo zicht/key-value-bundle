@@ -5,20 +5,32 @@
 
 namespace Zicht\Bundle\KeyValueBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
-class KeyValueCreateDirectoryCommand extends ContainerAwareCommand
+class KeyValueCreateDirectoryCommand extends Command
 {
+    /** @var string */
+    protected static $defaultName = 'zicht:key-value:create-directory';
+
+    /** @var Filesystem */
+    private $fileSystem;
+
+    public function __construct(Filesystem $filesystem, string $name = null)
+    {
+        parent::__construct($name);
+        $this->fileSystem = $filesystem;
+    }
+
     /**
      * {@inheritDoc}
      */
     protected function configure()
     {
         $this
-            ->setName('zicht:key-value:create-directory')
             ->setDefinition(
                 [
                     new InputArgument('target', InputArgument::OPTIONAL, 'The target directory', 'web'),
@@ -37,7 +49,6 @@ class KeyValueCreateDirectoryCommand extends ContainerAwareCommand
             throw new \InvalidArgumentException(sprintf('The target directory "%s" does not exist.', $input->getArgument('target')));
         }
 
-        $filesystem = $this->getContainer()->get('filesystem');
-        $filesystem->mkdir($targetArg . '/media/key_value_bundle/', 0777);
+        $this->fileSystem->mkdir($targetArg . '/media/key_value_bundle/', 0777);
     }
 }
