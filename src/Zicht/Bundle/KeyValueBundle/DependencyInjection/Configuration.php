@@ -18,8 +18,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('zicht_key_value');
+        $treeBuilder = new TreeBuilder('zicht_key_value');
+        $rootNode = $treeBuilder->getRootNode();
 
         // @formatter:off
         $rootNode
@@ -38,6 +38,19 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->scalarNode('locale')->isRequired()->end()
                             ->scalarNode('label')->isRequired()->end()
+                        ->end()
+                    ->end()
+                ->end()
+                ->arrayNode('paths')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('web')
+                            ->info('Publicly accessible directory of the webroot, default `/public`')
+                            ->defaultValue('/public')
+                        ->end()
+                        ->scalarNode('storage')
+                            ->info('Publicly accesible directory where the key-value files are stored, default `/public/media/key_value_storage`')
+                            ->defaultValue('/public/media/key_value_storage')
                         ->end()
                     ->end()
                 ->end()

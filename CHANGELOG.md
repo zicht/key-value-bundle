@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 4.3.0 - 2020-02-14 ❤️
+### Fixed
+- Compatibility with Symfony 5 by fixing a few issues.
+### Changed
+- Default settings for storage-paths are changed from `/web` to `/public` to keep the Symfony defaults.
+Revert to `/web` (if needed) by adding the following configuration:
+```yaml
+zicht_key_value:
+    paths:
+        web: /web
+        storage: /web/media/key_value_storage
+```
+
 ## 4.2.2 - 2020-02-20
 ### Fixed
 - Hardcoded key value storage column name as Doctrine doesn't accept camelCase column names by default and tries the snake_case variant
