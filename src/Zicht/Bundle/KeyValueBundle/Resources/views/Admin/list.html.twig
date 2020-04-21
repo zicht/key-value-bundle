@@ -23,7 +23,7 @@
                 <tr>
                     <td>{{ predefinedKey.key }}</td>
                     <td>{{ predefinedKey.friendlyName }}</td>
-                    <td>{{ predefinedKey.value|json_encode }}</td>
+                    <td>{{ predefinedKey.value|json_encode|truncate }}</td>
                 </tr>
             {% endfor %}
         </table>

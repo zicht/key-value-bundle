@@ -35,6 +35,26 @@ class PredefinedKey
     }
 
     /**
+     * Create a key based on a json schema
+     * Values can be scalar or array.
+     *
+     * @param string $jsonSchemaFile
+     * @param mixed $value
+     * @param string|null $friendlyName
+     * @return PredefinedKey
+     */
+    public static function createJsonSchemaKey($jsonSchemaFile, $value = null, $friendlyName = null)
+    {
+        $instance = new self();
+        $instance->setKey(basename($jsonSchemaFile));
+        $instance->setValue($value);
+        $instance->setFriendlyName($friendlyName);
+        $instance->setFormType("zicht_json_schema_type");
+        $instance->setFormOptions(['json_schema_file' => $jsonSchemaFile]);
+        return $instance;
+    }
+
+    /**
      * The unique identifier for this key.
      * E.g.: "vendor.bundle.domain.key"
      *
