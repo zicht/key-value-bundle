@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 Nothing so far
 
+## 2.3.0 - 2020-04-22
+### Added
+- The bundle now supports keys based on a json schema.  The values will be configurable in the
+  CMS by rendering a form using [json-editor](https://github.com/json-editor/json-editor).
+
+  The json schema file follows the well documented syntax from
+  [json-schema.org](https://json-schema.org/understanding-json-schema/reference/index.html).
+
+  ```php
+  PredefinedKey::createJsonSchemaKey(
+      realpath(__DIR__ . '/../Resources/public/key-value-storage/this-is-the-key.schema.json'),
+      ['foo' => 'Foo']);
+  ```
+
 ## 2.2.2 - 2019-09-10
 ### Fixed
 - The defaults values in yaml now also support json data.

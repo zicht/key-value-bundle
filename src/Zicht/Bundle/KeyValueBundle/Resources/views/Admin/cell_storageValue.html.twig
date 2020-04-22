@@ -2,6 +2,6 @@
 
 {% block field %}
     {% if object %}
-        {{ object.storageValue|json_encode }}
+        {{ object.storageValue|json_encode|truncate }}
     {% endif %}
 {% endblock %}
