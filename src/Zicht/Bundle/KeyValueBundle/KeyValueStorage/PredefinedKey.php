@@ -12,7 +12,7 @@ use Swaggest\JsonSchema\Schema;
  *
  * Definition of a Predefined-key.
  */
-class PredefinedKey
+class PredefinedKey implements PredefinedKeyInterface
 {
     /**
      * Create a key.
@@ -33,29 +33,6 @@ class PredefinedKey
         $instance->setFriendlyName($friendlyName);
         $instance->setFormType($formType);
         $instance->setFormOptions($formOptions);
-        return $instance;
-    }
-
-    /**
-     * Create a key based on a json schema
-     * Values can be scalar or array.
-     *
-     * @param string $jsonSchemaFile
-     * @param mixed $value
-     * @param string|null $friendlyName
-     * @return PredefinedKey
-     */
-    public static function createJsonSchemaKey($jsonSchemaFile)
-    {
-        $schema = Schema::import(json_decode(file_get_contents($jsonSchemaFile)));
-        $key = basename($jsonSchemaFile);
-
-        $instance = new self();
-        $instance->setKey($key);
-        $instance->setValue($schema->in((object)[])->toArray());
-        $instance->setFriendlyName($schema->description ?? $schema->title ?? $key);
-        $instance->setFormType("zicht_json_schema_type");
-        $instance->setFormOptions(['schema' => $schema]);
         return $instance;
     }
 
@@ -96,7 +73,7 @@ class PredefinedKey
     /**
      * PredefinedKey constructor.
      *
-     * Disable constructing, they can only be created from self::createKey to ensure key/value immutablilty.
+     * Disable constructing, they can only be created from self::createKey to ensure key/value immutability.
      */
     private function __construct()
     {
@@ -143,7 +120,7 @@ class PredefinedKey
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getKey()
     {
@@ -151,7 +128,7 @@ class PredefinedKey
     }
 
     /**
-     * @return mixed
+     * {@inheritDoc}
      */
     public function getValue()
     {
@@ -159,7 +136,7 @@ class PredefinedKey
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getFriendlyName()
     {
@@ -167,7 +144,7 @@ class PredefinedKey
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getFormType()
     {
@@ -175,7 +152,7 @@ class PredefinedKey
     }
 
     /**
-     * @return array
+     * {@inheritDoc}
      */
     public function getFormOptions()
     {

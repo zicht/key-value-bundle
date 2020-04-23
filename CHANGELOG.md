@@ -10,11 +10,12 @@ Nothing so far
 
 ## 2.3.1 - 2020-04-23
 ### Fixed
-- The `PredefinedKey::createJsonSchemaKey` now only takes the schema file.  All other information
+- The `PredefinedJsonSchemaKey::createKey` now only takes the schema file.  All other information
   will be obtained from the schema file:
   + Key: the file name
   + Value (default): the default values from the schema file
   + FriendlyName: the `description` or `title` from the schema file with a fallback to the Key
+- We now ensure that the schema file will only be loaded in the cms.
 
 ## 2.3.0 - 2020-04-22
 ### Added
@@ -25,7 +26,7 @@ Nothing so far
   [json-schema.org](https://json-schema.org/understanding-json-schema/reference/index.html).
 
   ```php
-  PredefinedKey::createJsonSchemaKey(
+  PredefinedJsonSchemaKey::createKey(
       realpath(__DIR__ . '/../Resources/public/key-value-storage/this-is-the-key.schema.json'));
   ```
 
