@@ -18,16 +18,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class JsonSchemaType extends AbstractType
 {
-    /** @var Schema|null */
-    private $schema;
-
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired('json_schema_file');
+        $resolver->setRequired('schema');
+        $resolver->setAllowedTypes('schema', Schema::class);
+
         $resolver->setDefault('popup', false);
+        $resolver->setAllowedTypes('popup', 'bool');
     }
 
     /**
@@ -48,7 +48,7 @@ class JsonSchemaType extends AbstractType
         // Validate the data
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($options) {
             try {
-                $this->getSchema($options['json_schema_file'])->in(json_decode($event->getData()));
+                $options['schema']->in(json_decode($event->getData()));
             } catch (\Exception $exception) {
                 $event->getForm()->addError(new FormError($exception->getMessage()));
             }
@@ -62,10 +62,10 @@ class JsonSchemaType extends AbstractType
     {
         $view->vars['attr'] = [
             'class' => 'js-json-editor',
-            'data-json-editor-popup-title' => basename($options['json_schema_file']),
+            'data-json-editor-popup-title' => $options['schema']['$id'],
             'data-json-editor-popup' => $options['popup'] ? 'yes' : 'no',
             'data-json-editor-options' => '{"theme": "bootstrap3", "required_by_default": true, "disable_properties": true}',
-            'data-json-editor-schema-url' => $this->getSchema($options['json_schema_file'])->offsetGet('$id'),
+            'data-json-editor-schema-url' => $options['schema']['$id'],
         ];
     }
 
@@ -83,21 +83,5 @@ class JsonSchemaType extends AbstractType
     public function getName()
     {
         return 'zicht_json_schema_type';
-    }
-
-    /**
-     * Returns the schema instance
-     *
-     * @param string $file
-     * @return Schema|\Swaggest\JsonSchema\SchemaContract|null
-     * @throws \Swaggest\JsonSchema\Exception
-     * @throws \Swaggest\JsonSchema\InvalidValue
-     */
-    private function getSchema($file)
-    {
-        if ($this->schema === null) {
-            $this->schema = Schema::import(json_decode(file_get_contents($file)));
-        }
-        return $this->schema;
     }
 }

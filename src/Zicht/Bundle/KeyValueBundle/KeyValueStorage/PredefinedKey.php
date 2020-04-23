@@ -5,6 +5,8 @@
 
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
+use Swaggest\JsonSchema\Schema;
+
 /**
  * Class PredefinedKey.
  *
@@ -43,14 +45,17 @@ class PredefinedKey
      * @param string|null $friendlyName
      * @return PredefinedKey
      */
-    public static function createJsonSchemaKey($jsonSchemaFile, $value = null, $friendlyName = null)
+    public static function createJsonSchemaKey($jsonSchemaFile)
     {
+        $schema = Schema::import(json_decode(file_get_contents($jsonSchemaFile)));
+        $key = basename($jsonSchemaFile);
+
         $instance = new self();
-        $instance->setKey(basename($jsonSchemaFile));
-        $instance->setValue($value);
-        $instance->setFriendlyName($friendlyName);
+        $instance->setKey($key);
+        $instance->setValue($schema->in((object)[])->toArray());
+        $instance->setFriendlyName($schema->description ?? $schema->title ?? $key);
         $instance->setFormType("zicht_json_schema_type");
-        $instance->setFormOptions(['json_schema_file' => $jsonSchemaFile]);
+        $instance->setFormOptions(['schema' => $schema]);
         return $instance;
     }
 
