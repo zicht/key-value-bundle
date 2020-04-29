@@ -7,6 +7,7 @@ namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
 use Swaggest\JsonSchema\Schema;
 use Swaggest\JsonSchema\SchemaContract;
+use Zicht\Bundle\KeyValueBundle\Form\Type\JsonSchemaType;
 
 class PredefinedJsonSchemaKey implements PredefinedKeyInterface
 {
@@ -67,7 +68,7 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
      */
     public function getFormType()
     {
-        return 'zicht_json_schema_type';
+        return JsonSchemaType::class;
     }
 
     /**

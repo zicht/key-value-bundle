@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 3.3.1 - 2020-04-29
+### Fixed
+- Fixed Symfony 3 issue where form types should be identified using their class name.
+
 ## 3.3.0 - 2020-04-28
 ### Added
 - Forward merge from 2.3.0 and 2.3.1.
