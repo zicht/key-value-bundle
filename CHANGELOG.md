@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 Nothing so far
 
+## 2.4.0 - 2020-05-06
+### Added
+- The `zicht:key-value:migrate-json-schema-keys` command is now available to check and migrate
+  json schema key values when the associated schema changes.  We advise that this command is executed
+  every time a deploy is performed.
+
 ## 2.3.1 - 2020-04-23
 ### Fixed
 - The `PredefinedJsonSchemaKey::createKey` now only takes the schema file.  All other information
