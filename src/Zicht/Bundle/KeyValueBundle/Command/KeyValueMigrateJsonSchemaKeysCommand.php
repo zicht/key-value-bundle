@@ -8,13 +8,11 @@ namespace Zicht\Bundle\KeyValueBundle\Command;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\PredefinedJsonSchemaKey;
-use Swaggest\JsonSchema\Exception\ObjectException;
 
 class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
 {
@@ -47,16 +45,22 @@ class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
             if ($predefinedKey instanceof PredefinedJsonSchemaKey) {
                 $key = $predefinedKey->getKey();
                 $defaultValue = $predefinedKey->getValue();
-                $defaultValueIsValid = $predefinedKey->isValid($defaultValue);
+                if (!$defaultValueIsValid = $predefinedKey->isValid($defaultValue, $message)) {
+                    $output->writeln(sprintf('<error>%s</error> - %s - validation error on default value', $message, $key));
+                }
                 $defaultState = $defaultValueIsValid ? 'ok' : '<error>invalid</error>';
                 $storageValue = $storageManager->getValue($key);
-                $storageValueIsValid = $predefinedKey->isValid($storageValue);
+                if(!$storageValueIsValid = $predefinedKey->isValid($storageValue, $message)) {
+                    $output->writeln(sprintf('<error>%s</error> - %s - validation error on storage value', $message, $key));
+                }
                 $storageState = $storageValueIsValid ? 'ok' : '<error>invalid</error>';
                 $migrateState = $storageValueIsValid ? '' : '<error>unable to migrate</error>';
 
                 if ($defaultValueIsValid && !$storageValueIsValid) {
-                    $migrateValue = array_replace_recursive($defaultValue, $storageValue);
-                    $migrateValueIsValid = $predefinedKey->isValid($migrateValue);
+                    $migrateValue = $predefinedKey->migrate($storageValue);
+                    if (!$migrateValueIsValid = $predefinedKey->isValid($migrateValue, $message)) {
+                        $output->writeln(sprintf('<error>%s</error> - %s - validation error on migrated value', $message, $key));
+                    }
 
                     if ($migrateValueIsValid) {
                         if ($input->getOption('force')) {
