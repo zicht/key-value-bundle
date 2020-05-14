@@ -5,6 +5,7 @@
 
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
+use Swaggest\JsonSchema\Context;
 use Swaggest\JsonSchema\Schema;
 use Swaggest\JsonSchema\SchemaContract;
 
@@ -17,15 +18,15 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
      * @param bool|int|float|string|array $staticUncheckedDefaultValue
      * @return PredefinedJsonSchemaKey
      */
-    public static function createKey(string $jsonSchemaFile, $staticUncheckedDefaultValue = [])
+    public static function createKey(string $jsonSchemaFile, $staticUncheckedDefaultValue = null)
     {
-        return new self($jsonSchemaFile, $staticUncheckedDefaultValue);
+        return new self($jsonSchemaFile, $staticUncheckedDefaultValue === null ? (object)[] : $staticUncheckedDefaultValue);
     }
 
     /** @var string $jsonSchemaFile */
     private $jsonSchemaFile;
 
-    /** @var bool|int|float|string|array */
+    /** @var bool|int|float|string|array|object */
     private $staticUncheckedDefaultValue;
 
     /** @var SchemaContract|null */
@@ -55,11 +56,7 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
      */
     public function getValue()
     {
-        // json_encode and then json_decode to return object structure instead of php array structure because the schema uses objects
-        $objectValue = json_decode(json_encode($this->staticUncheckedDefaultValue, JSON_FORCE_OBJECT), false);
-
-        // json_encode and then json_decode to return php array structure instead of object structure because the key-value-bundle uses php arrays
-        return json_decode(json_encode($this->getSchema()->in($objectValue)), true);
+        return $this->migrate($this->staticUncheckedDefaultValue);
     }
 
     /**
@@ -87,20 +84,39 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
         return ['schema' => $this->getSchema()];
     }
 
+    /**
+     * Try to migrate a given value to a new value
+     *
+     * @param bool|int|float|string|array $value
+     * @return bool|int|float|string|array|null Returns null when the validation failed
+     */
+    public function migrate($value)
+    {
+        $context = new Context();
+        $context->skipValidation = true;
+
+        // json_encode and then json_decode to return object structure instead of php array structure because the schema uses objects
+        $objectValue = json_decode(json_encode($value), false);
+
+        // json_encode and then json_decode to return php array structure instead of object structure because the key-value-bundle uses php arrays
+        return json_decode(json_encode($this->getSchema()->process($objectValue, $context)), true);
+    }
 
     /**
      * Returns true when $value conforms to the schema
      *
      * @param array $value
+     * @param null|string &$errorMessage Returns the error message, if any
      * @return bool
      */
-    public function isValid(array $value): bool
+    public function isValid(array $value, &$errorMessage = null): bool
     {
         try {
             // json_encode and then json_decode to return object structure instead of php array structure because the schema uses objects
             $this->getSchema()->in(json_decode(json_encode($value), false));
             return true;
         } catch (\Exception $exception) {
+            $errorMessage = $exception->getMessage();
             return false;
         }
     }
