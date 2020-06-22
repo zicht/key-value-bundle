@@ -3,7 +3,7 @@
  * @copyright Zicht Online <http://www.zicht.nl>
  */
 
-namespace ZichtTest\Bundle\KeyValueBundle\Tests\KeyValueStorage;
+namespace Zicht\Bundle\KeyValueBundle\Tests\KeyValueStorage;
 
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\AbstractKeyDefiner;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\PredefinedKey;

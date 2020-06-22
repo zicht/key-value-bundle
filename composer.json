@@ -20,13 +20,13 @@
     },
     "minimum-stability": "stable",
     "autoload": {
-        "psr-0": {
-            "Zicht\\": ["src/"]
+        "psr-4": {
+            "Zicht\\Bundle\\KeyValueBundle\\": "src/"
         }
     },
     "autoload-dev": {
-        "psr-0": {
-            "Zicht\\": ["tests/"]
+        "psr-4": {
+            "Zicht\\Bundle\\KeyValueBundle\\Tests\\": "tests/"
         }
     },
     "scripts": {
