@@ -3,17 +3,14 @@
  * @copyright Zicht Online <http://www.zicht.nl>
  */
 
-namespace ZichtTest\Bundle\KeyValueBundle\KeyValueStorage\Tests;
+namespace Zicht\Bundle\KeyValueBundle\Tests\KeyValueStorage;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\LocaleDependentData;
-use ZichtTest\Bundle\KeyValueBundle\Tests\KeyValueStorage\FooKeysDefiner;
 use PHPUnit\Framework\TestCase;
-
-require 'FooKeysDefiner.php';
 
 class KeyValueStorageManagerTest extends TestCase
 {

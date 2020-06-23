@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 4.4.0 - 2020-06-22
+### Changed
+- Introduced PSR-4 autoloading
+
 ## 4.3.0 - 2020-02-14 ❤️
 ### Fixed
 - Compatibility with Symfony 5 by fixing a few issues.
