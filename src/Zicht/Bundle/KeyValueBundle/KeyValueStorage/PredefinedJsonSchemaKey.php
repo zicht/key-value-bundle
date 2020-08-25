@@ -112,6 +112,14 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
      */
     public function isValid(array $value, &$errorMessage = null): bool
     {
+        // PHP is unable to distinguish between an empty array and an empty object,
+        // that causes `[]` to become an empty array, while the schema expects an
+        // empty object.  We fix this case manually and hope this does not occur
+        // anywhere else $data.
+        if ($value === []) {
+            $value = (object)$value;
+        }
+
         try {
             // json_encode and then json_decode to return object structure instead of php array structure because the schema uses objects
             $this->getSchema()->in(json_decode(json_encode($value), false));
