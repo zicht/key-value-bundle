@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 3.4.1 - 2020-08-25
+### Added
+- The command `zicht:key-value:migrate-json-schema-keys` now supports the flag
+  `--replace-invalid` that will replace an invalid stored value with the default
+  value.
+- Forward merge from 2.4.1.
+### Fixed
+- `PredefinedJsonSchemaKey::isValid` can now handle `[]` input by replacing it
+  with `(object)[]`.
+
 ## 3.4.0 - 2020-05-06
 ### Added
 - Forward merge from 2.4.0.
