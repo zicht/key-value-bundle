@@ -33,6 +33,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Support for Symfony 2.x and Twig 1.x
 
+## 2.4.1 - 2020-05-13
+### Fixed
+- The `zicht:key-value:migrate-json-schema-keys` command now uses the Schema library itself
+  to migrate from values in the database to newer schema versions.
+
 ## 2.4.0 - 2020-05-06
 ### Added
 - The `zicht:key-value:migrate-json-schema-keys` command is now available to check and migrate
