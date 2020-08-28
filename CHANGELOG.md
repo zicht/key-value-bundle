@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 3.4.2 - 2020-08-25
+### Fixed
+- `PredefinedJsonSchemaKey::migrate` can now handle `[]` input by replacing it
+  with `(object)[]`.
+
+## 3.4.1 - 2020-08-25
+### Added
+- The command `zicht:key-value:migrate-json-schema-keys` now supports the flag
+  `--replace-invalid` that will replace an invalid stored value with the default
+  value.
+- Forward merge from 2.4.1.
+### Fixed
+- `PredefinedJsonSchemaKey::isValid` can now handle `[]` input by replacing it
+  with `(object)[]`.
+
 ## 3.4.0 - 2020-05-06
 ### Added
 - Forward merge from 2.4.0.
@@ -32,6 +47,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Support for Symfony 3.x and Twig 2.x
 ### Removed
 - Support for Symfony 2.x and Twig 1.x
+
+## 2.4.1 - 2020-05-13
+### Fixed
+- The `zicht:key-value:migrate-json-schema-keys` command now uses the Schema library itself
+  to migrate from values in the database to newer schema versions.
 
 ## 2.4.0 - 2020-05-06
 ### Added
