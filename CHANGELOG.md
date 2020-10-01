@@ -5,7 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## Next major version
+### Removed
+- CamelCased Twig functions. They are replaced with snake-cased versions.
+Replace `getFromKeyValueStorage`, `getPredefinedKey`, `getMissingDBValues` with their equivalent.
+
 ### Added|Changed|Deprecated|Removed|Fixed|Security
+
+## 4.4.1 - 2020-10-01
+### Fixed
+- Updates in `LocaleDependentDataType` regarding Symfony 4.
+### Added
+- New Twig functions following snake-case conventions.
 
 ## 4.4.0 - 2020-06-22
 ### Changed

@@ -44,15 +44,7 @@ class LocaleDependentDataType extends AbstractType
     /**
      * {@inheritDoc}
      */
-    public function getParent()
-    {
-        return 'form';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'zicht_locale_dependent_type';
     }

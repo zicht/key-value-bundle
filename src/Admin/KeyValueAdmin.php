@@ -79,7 +79,7 @@ class KeyValueAdmin extends Admin
                 $formType = $predefinedKey->getFormType();
                 $formOptions = $predefinedKey->getFormOptions();
             } else {
-                $formType = 'text';
+                $formType = TextType::class;
                 $formOptions = [];
             }
             $form->add('storageValue', $formType, $formOptions);
