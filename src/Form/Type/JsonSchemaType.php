@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class JsonSchemaType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -31,32 +31,37 @@ class JsonSchemaType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // Transform data to and from a string
-        $builder->addModelTransformer(new CallbackTransformer(
-            function ($dataAsObject) {
-                return json_encode($dataAsObject);
-            },
-            function ($dataAsString) {
-                return json_decode($dataAsString, true);
-            }
-        ));
+        $builder->addModelTransformer(
+            new CallbackTransformer(
+                function ($dataAsObject) {
+                    return json_encode($dataAsObject);
+                },
+                function ($dataAsString) {
+                    return json_decode($dataAsString, true);
+                }
+            )
+        );
 
         // Validate the data
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($options) {
+        $builder->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($options) {
             try {
                 $options['schema']->in(json_decode($event->getData()));
             } catch (\Exception $exception) {
                 $event->getForm()->addError(new FormError($exception->getMessage()));
             }
-        });
+            }
+        );
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
@@ -70,7 +75,7 @@ class JsonSchemaType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getParent()
     {
@@ -78,7 +83,7 @@ class JsonSchemaType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getName()
     {

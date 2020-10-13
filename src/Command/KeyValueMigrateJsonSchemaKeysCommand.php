@@ -18,7 +18,7 @@ use Zicht\Bundle\KeyValueBundle\KeyValueStorage\PredefinedJsonSchemaKey;
 class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function configure()
     {
@@ -30,7 +30,7 @@ class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

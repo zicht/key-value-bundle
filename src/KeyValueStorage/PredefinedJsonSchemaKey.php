@@ -13,8 +13,6 @@ use Zicht\Bundle\KeyValueBundle\Form\Type\JsonSchemaType;
 class PredefinedJsonSchemaKey implements PredefinedKeyInterface
 {
     /**
-     * Create a key based on a json schema
-     *
      * @param string $jsonSchemaFile
      * @param bool|int|float|string|array $staticUncheckedDefaultValue
      * @return PredefinedJsonSchemaKey
@@ -24,7 +22,7 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
         return new self($jsonSchemaFile, $staticUncheckedDefaultValue === null ? (object)[] : $staticUncheckedDefaultValue);
     }
 
-    /** @var string $jsonSchemaFile */
+    /** @var string */
     private $jsonSchemaFile;
 
     /** @var bool|int|float|string|array|object */
@@ -34,9 +32,9 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
     private $schema;
 
     /**
-     * PredefinedKey constructor.
-     *
      * Disable constructing, they can only be created from self::createKey to ensure key/value immutability.
+     * @param string $jsonSchemaFile
+     * @param bool|int|float|string|array|object $staticUncheckedDefaultValue
      */
     private function __construct(string $jsonSchemaFile, $staticUncheckedDefaultValue)
     {
@@ -115,7 +113,7 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
      * Returns true when $value conforms to the schema
      *
      * @param array $value
-     * @param null|string &$errorMessage Returns the error message, if any
+     * @param null|string $errorMessage Returns the error message, if any
      * @return bool
      */
     public function isValid(array $value, &$errorMessage = null): bool
