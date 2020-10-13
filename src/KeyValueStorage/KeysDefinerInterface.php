@@ -10,7 +10,7 @@ interface KeysDefinerInterface
     /**
      * Returns an array with 1 or more Predefined Keys.
      *
-     * @return PredefinedKey[]
+     * @return PredefinedKeyInterface[]
      */
     public function getPredefinedKeys();
 

@@ -83,6 +83,33 @@ zicht_key_value:
 This example was used for inspiration: https://github.com/symfony/symfony/issues/24545#issuecomment-336419270
 - Collect debuginformation through Symfony's `DataCollector` and display calls to keys and values in the toolbar.
 
+## 3.4.2 - 2020-08-25
+### Fixed
+- `PredefinedJsonSchemaKey::migrate` can now handle `[]` input by replacing it
+  with `(object)[]`.
+
+## 3.4.1 - 2020-08-25
+### Added
+- The command `zicht:key-value:migrate-json-schema-keys` now supports the flag
+  `--replace-invalid` that will replace an invalid stored value with the default
+  value.
+- Forward merge from 2.4.1.
+### Fixed
+- `PredefinedJsonSchemaKey::isValid` can now handle `[]` input by replacing it
+  with `(object)[]`.
+
+## 3.4.0 - 2020-05-06
+### Added
+- Forward merge from 2.4.0.
+
+## 3.3.1 - 2020-04-29
+### Fixed
+- Fixed Symfony 3 issue where form types should be identified using their class name.
+
+## 3.3.0 - 2020-04-28
+### Added
+- Forward merge from 2.3.0 and 2.3.1.
+
 ## 3.2.0 - 2019-09-12
 ### Added
 - Forward merge from 2.2.2.
@@ -96,6 +123,39 @@ This example was used for inspiration: https://github.com/symfony/symfony/issues
 - Support for Symfony 3.x and Twig 2.x
 ### Removed
 - Support for Symfony 2.x and Twig 1.x
+
+## 2.4.1 - 2020-05-13
+### Fixed
+- The `zicht:key-value:migrate-json-schema-keys` command now uses the Schema library itself
+  to migrate from values in the database to newer schema versions.
+
+## 2.4.0 - 2020-05-06
+### Added
+- The `zicht:key-value:migrate-json-schema-keys` command is now available to check and migrate
+  json schema key values when the associated schema changes.  We advise that this command is executed
+  every time a deploy is performed.
+
+## 2.3.1 - 2020-04-23
+### Fixed
+- The `PredefinedJsonSchemaKey::createKey` now only takes the schema file.  All other information
+  will be obtained from the schema file:
+  + Key: the file name
+  + Value (default): the default values from the schema file
+  + FriendlyName: the `description` or `title` from the schema file with a fallback to the Key
+- We now ensure that the schema file will only be loaded in the cms.
+
+## 2.3.0 - 2020-04-22
+### Added
+- The bundle now supports keys based on a json schema.  The values will be configurable in the
+  CMS by rendering a form using [json-editor](https://github.com/json-editor/json-editor).
+
+  The json schema file follows the well documented syntax from
+  [json-schema.org](https://json-schema.org/understanding-json-schema/reference/index.html).
+
+  ```php
+  PredefinedJsonSchemaKey::createKey(
+      realpath(__DIR__ . '/../Resources/public/key-value-storage/this-is-the-key.schema.json'));
+  ```
 
 ## 2.2.2 - 2019-09-10
 ### Fixed
