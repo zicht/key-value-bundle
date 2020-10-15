@@ -17,14 +17,7 @@
         {% set text %}
             {% for call, value in collector.callsMade %}
                 <div class="sf-toolbar-info-piece">
-                    <b>{{ call|split('.')|last }}</b>
-                    {% if value is iterable %}
-                        {% for v in value %}
-                            {{ v }}<br>
-                        {% endfor %}
-                    {% else %}
-                        {{ value }}
-                    {% endif %}
+                    <b>{{ call }}</b>
                 </div>
             {% endfor %}
         {% endset %}
@@ -53,7 +46,7 @@
         {% for call, value in collector.callsMade %}
             <tr>
                 <td>{{ call }}</td>
-                <td>{{ profiler_dump(value) }}</td>
+                <td>{{ dump(value) }}</td>
             </tr>
         {% endfor %}
     </table>
