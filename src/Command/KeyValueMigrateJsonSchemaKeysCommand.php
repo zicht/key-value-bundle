@@ -17,13 +17,15 @@ use Zicht\Bundle\KeyValueBundle\KeyValueStorage\PredefinedJsonSchemaKey;
 
 class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
 {
+    /** @var string */
+    protected static $defaultName = 'zicht:key-value:migrate-json-schema-keys';
+
     /**
      * {@inheritDoc}
      */
     protected function configure()
     {
         $this
-            ->setName('zicht:key-value:migrate-json-schema-keys')
             ->setDescription('Validate all json schema keys and migrate when possible')
             ->addOption('replace-invalid', null, InputOption::VALUE_NONE, 'Replace stored value with default value when unable to migrate')
             ->addOption('force', null, InputOption::VALUE_NONE, 'Force migration in the database to occur');
