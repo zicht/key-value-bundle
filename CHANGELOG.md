@@ -15,6 +15,9 @@ Replace `getFromKeyValueStorage`, `getPredefinedKey`, `getMissingDBValues` with 
 ## 4.5.0 - 2020-10-13
 ### Added
 - Forward merge from 2.x and 3.x.
+### Changed
+- Allow `zicht_bundle_key_value.key_value_storage_manager` to be a public service.
+- Defined commands explicitly in `services.xml`.
 
 ## 4.4.1 - 2020-10-01
 ### Fixed
