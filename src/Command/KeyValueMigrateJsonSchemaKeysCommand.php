@@ -5,7 +5,6 @@
 
 namespace Zicht\Bundle\KeyValueBundle\Command;
 
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -43,7 +42,6 @@ class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
 
         /** @var KeyValueStorageManager $storageManager */
         $storageManager = $this->getContainer()->get('zicht_bundle_key_value.key_value_storage_manager');
-        /** @var RegistryInterface $doctrine */
         $doctrine = $this->getContainer()->get('doctrine');
 
         foreach ($storageManager->getAllKeys() as $key) {
