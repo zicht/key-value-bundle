@@ -12,13 +12,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class KeyValueCreateDirectoryCommand extends ContainerAwareCommand
 {
+    /** @var string */
+    protected static $defaultName = 'zicht:key-value:create-directory';
+
     /**
      * {@inheritDoc}
      */
     protected function configure()
     {
         $this
-            ->setName('zicht:key-value:create-directory')
             ->setDefinition(
                 [
                     new InputArgument('target', InputArgument::OPTIONAL, 'The target directory', 'web'),

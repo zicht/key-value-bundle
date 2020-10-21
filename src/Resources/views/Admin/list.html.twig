@@ -36,7 +36,7 @@
                             <td class="sonata-ba-list-field sonata-ba-list-field-text"><span
                                         title="{{ predefinedKey.key }}">{{ predefinedKey.key|split('.')|last }}</span>
                             </td>
-                            <td class="sonata-ba-list-field sonata-ba-list-field-text">{{ predefinedKey.value|json_encode }}</td>
+                            <td class="sonata-ba-list-field sonata-ba-list-field-text">{{ predefinedKey.value|json_encode|truncate }}</td>
                             <td class="sonata-ba-list-field sonata-ba-list-field-text">{{ predefinedKey.friendlyName }}</td>
                             <td>
                                 <a href="{{ admin.generateUrl('create') }}?key={{ predefinedKey.key|url_encode }}" class="btn btn-sm btn-default edit_link" title="{{ 'link_action_create'|trans({}, 'SonataAdminBundle')|lower }}">

@@ -12,6 +12,7 @@
         "zicht/itertools": "^2.0",
         "sonata-project/admin-bundle": "^3",
         "symfony/form": "^3.4 || ^4.4 || ^5",
+        "swaggest/json-schema": "^0.12",
         "twig/twig": "2 - 3"
     },
     "require-dev": {

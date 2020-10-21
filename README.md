@@ -49,6 +49,10 @@ class FooBundleKeyDefiner extends AbstractKeyDefiner
                 'zicht_locale_dependent_type',
                 ['type' => 'checkbox']
             ),
+            PredefinedJsonSchemaKey::createKey(
+                realpath(__DIR__ . '/../Resources/public/key-value-storage/foo-config.schema.json'),
+                $this->getDefaultValue('foo-config.schema.json', [])
+            ),
         ];
     }
 }

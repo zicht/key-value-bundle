@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  *
  * Definition of a Predefined-key.
  */
-class PredefinedKey
+class PredefinedKey implements PredefinedKeyInterface
 {
     /**
      * Create a key.
@@ -65,7 +65,7 @@ class PredefinedKey
     /**
      * PredefinedKey constructor.
      *
-     * Disable constructing, they can only be created from self::createKey to ensure key/value immutablilty.
+     * Disable constructing, they can only be created from self::createKey to ensure key/value immutability.
      */
     private function __construct()
     {
@@ -112,7 +112,7 @@ class PredefinedKey
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getKey()
     {
@@ -120,7 +120,7 @@ class PredefinedKey
     }
 
     /**
-     * @return mixed
+     * {@inheritDoc}
      */
     public function getValue()
     {
@@ -128,7 +128,7 @@ class PredefinedKey
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getFriendlyName()
     {
@@ -136,7 +136,7 @@ class PredefinedKey
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getFormType()
     {
@@ -144,7 +144,7 @@ class PredefinedKey
     }
 
     /**
-     * @return array
+     * {@inheritDoc}
      */
     public function getFormOptions()
     {

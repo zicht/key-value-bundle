@@ -7,14 +7,14 @@
     <services>
 
         <service class="Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager"
-                 id="zicht_bundle_key_value.key_value_storage_manager">
+                 id="zicht_bundle_key_value.key_value_storage_manager" public="true">
             <argument type="service" id="doctrine"/>
             <argument type="string"><!-- web dir, injected at configuration compile time --></argument>
             <argument type="string"><!-- key_value_storage dir, injected at configuration compile time --></argument>
             <argument>null</argument><!-- possibly replaced with a cache-service -->
         </service>
 
-        <service alias="zicht_bundle_key_value.key_value_storage_manager" id="Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManagerInterface"/>
+        <service alias="zicht_bundle_key_value.key_value_storage_manager" id="Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManagerInterface" public="true"/>
 
         <service id="zicht_bundle_key_value.twig.key_value_bundle_twig_extension" class="Zicht\Bundle\KeyValueBundle\Twig\KeyValueBundleTwigExtension">
             <argument type="service" id="zicht_bundle_key_value.key_value_storage_manager"/>
@@ -37,6 +37,15 @@
                  public="false">
             <argument type="service" id="zicht_bundle_key_value.key_value_storage_manager"/>
             <tag name="data_collector" template="@ZichtKeyValue/DataCollector/template.html.twig" id="zicht_key_value"/>
+        </service>
+
+        <!-- commands -->
+        <service id="Zicht\Bundle\KeyValueBundle\Command\KeyValueCreateDirectoryCommand">
+            <tag name="console.command"/>
+        </service>
+
+        <service id="Zicht\Bundle\KeyValueBundle\Command\KeyValueMigrateJsonSchemaKeysCommand">
+            <tag name="console.command"/>
         </service>
 
     </services>
