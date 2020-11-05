@@ -94,6 +94,30 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
     }
 
     /**
+     * Try to migrate a given value to a new value
+     *
+     * @param bool|int|float|string|array $value
+     * @param null|string &$message
+     * @return bool|int|float|string|array|null Returns null when the validation failed
+     */
+    public function migrate($value, &$message = null)
+    {
+        return $this->schemaService->migrate($this->schemaFile, $data, $message);
+    }
+
+    /**
+     * Try to migrate a given value to a new value
+     *
+     * @param bool|int|float|string|array $value
+     * @param null|string &$message
+     * @return bool|int|float|string|array|null Returns null when the validation failed
+     */
+    public function isValid($value, &$message = null): bool
+    {
+        return $this->schemaService->validate($this->schemaFile, $value, $message);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getFormOptions()

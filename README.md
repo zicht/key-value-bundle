@@ -26,6 +26,14 @@ this service with `zicht_bundle_key_value.keys_definer`
 ```
 class FooBundleKeyDefiner extends AbstractKeyDefiner
 {
+    /** @var SchemaService */
+    private $schemaService;
+
+    public function __construct(SchemaService $schemaService)
+    {
+        $this->schemaService = $schemaService;
+    }
+
     public function getPredefinedKeys()
     {
         return [
@@ -50,7 +58,8 @@ class FooBundleKeyDefiner extends AbstractKeyDefiner
                 ['type' => 'checkbox']
             ),
             PredefinedJsonSchemaKey::createKey(
-                realpath(__DIR__ . '/../Resources/public/key-value-storage/foo-config.schema.json'),
+                $this->schemaService,
+                '/bundles/yourbundle/key-value-storage/foo-config.schema.json', # relative to the public web dir
                 $this->getDefaultValue('foo-config.schema.json', [])
             ),
         ];
