@@ -9,9 +9,5 @@
             <argument type="collection"/> <!-- the available locales are supplied through dependency injection -->
             <tag name="form.type" alias="zicht_locale_dependent_type" />
         </service>
-        <service id="Zicht\Bundle\KeyValueBundle\Form\Type\JsonSchemaType" class="Zicht\Bundle\KeyValueBundle\Form\Type\JsonSchemaType">
-            <argument type="collection"/> <!-- the available locales are supplied through dependency injection -->
-            <tag name="form.type" alias="zicht_json_schema_type" />
-        </service>
     </services>
 </container>
