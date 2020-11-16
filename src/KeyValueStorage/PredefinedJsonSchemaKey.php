@@ -8,22 +8,37 @@ namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 use Swaggest\JsonSchema\Context;
 use Swaggest\JsonSchema\Schema;
 use Swaggest\JsonSchema\SchemaContract;
-use Zicht\Bundle\KeyValueBundle\Form\Type\JsonSchemaType;
+use Zicht\Bundle\FrameworkExtraBundle\Form\JsonSchemaType;
+use Zicht\Bundle\FrameworkExtraBundle\JsonSchema\SchemaService;
 
 class PredefinedJsonSchemaKey implements PredefinedKeyInterface
 {
     /**
-     * @param string $jsonSchemaFile
+     * @param SchemaService $schemaService
+     * @param string $schemaFile
      * @param bool|int|float|string|array $staticUncheckedDefaultValue
      * @return PredefinedJsonSchemaKey
      */
-    public static function createKey(string $jsonSchemaFile, $staticUncheckedDefaultValue = null)
+    public static function createKey($schemaService = null, $schemaFile = null, $staticUncheckedDefaultValue = null)
     {
-        return new self($jsonSchemaFile, $staticUncheckedDefaultValue === null ? (object)[] : $staticUncheckedDefaultValue);
+        $args = func_get_args();
+        if ($args[0] instanceof SchemaService) {
+            $schemaService = $args[0];
+            $schemaFile = $args[1];
+            $staticUncheckedDefaultValue = isset($args[2]) ? $args[2] : null;
+        } else {
+            $schemaService = new SchemaService(new DummyTranslator(), '/unspecified/directory');
+            $schemaFile = $args[0];
+            $staticUncheckedDefaultValue = isset($args[1]) ? $args[1] : null;
+        }
+        return new self($schemaService, $schemaFile, $staticUncheckedDefaultValue === null ? (object)[] : $staticUncheckedDefaultValue);
     }
 
+    /** @var SchemaService */
+    private $schemaService;
+
     /** @var string */
-    private $jsonSchemaFile;
+    private $schemaFile;
 
     /** @var bool|int|float|string|array|object */
     private $staticUncheckedDefaultValue;
@@ -33,12 +48,15 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
 
     /**
      * Disable constructing, they can only be created from self::createKey to ensure key/value immutability.
-     * @param string $jsonSchemaFile
+     *
+     * @param SchemaService $schemaService
+     * @param string $schemaFile
      * @param bool|int|float|string|array|object $staticUncheckedDefaultValue
      */
-    private function __construct(string $jsonSchemaFile, $staticUncheckedDefaultValue)
+    private function __construct(SchemaService $schemaService, string $schemaFile, $staticUncheckedDefaultValue)
     {
-        $this->jsonSchemaFile = $jsonSchemaFile;
+        $this->schemaService = $schemaService;
+        $this->schemaFile = $schemaFile;
         $this->staticUncheckedDefaultValue = $staticUncheckedDefaultValue;
     }
 
@@ -47,7 +65,7 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
      */
     public function getKey()
     {
-        return basename($this->jsonSchemaFile);
+        return basename($this->schemaFile);
     }
 
     /**
@@ -55,7 +73,7 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
      */
     public function getValue()
     {
-        return $this->migrate($this->staticUncheckedDefaultValue);
+        return $this->schemaService->migrate($this->schemaFile, $this->staticUncheckedDefaultValue);
     }
 
     /**
@@ -63,7 +81,7 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
      */
     public function getFriendlyName()
     {
-        $schema = $this->getSchema();
+        $schema = $this->schemaService->getSchema($this->schemaFile);
         return $schema->description ?? $schema->title ?? $this->getKey();
     }
 
@@ -76,76 +94,46 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Try to migrate a given value to a new value
+     *
+     * @param bool|int|float|string|array $value
+     * @param null|string $message
+     * @return bool|int|float|string|array|null Returns null when the validation failed
      */
-    public function getFormOptions()
+    public function migrate($value, &$message = null)
     {
-        return ['schema' => $this->getSchema()];
+        return $this->schemaService->migrate($this->schemaFile, $value, $message);
     }
 
     /**
      * Try to migrate a given value to a new value
      *
      * @param bool|int|float|string|array $value
-     * @return bool|int|float|string|array|null Returns null when the validation failed
+     * @param null|string $message Returns the error message, if any
+     * @return bool Returns false when the validation failed
      */
-    public function migrate($value)
+    public function isValid($value, &$message = null): bool
     {
-        $context = new Context();
-        $context->skipValidation = true;
-
-        // json_encode and then json_decode to return object structure instead of php array structure because the schema uses objects
-        $objectValue = json_decode(json_encode($value), false);
-
-        // PHP is unable to distinguish between an empty array and an empty object,
-        // that causes `[]` to become an empty array, while the schema expects an
-        // empty object.  We fix this case manually and hope this does not occur
-        // anywhere else $data.
-        if ($objectValue === []) {
-            $objectValue = (object)$objectValue;
-        }
-
-        // json_encode and then json_decode to return php array structure instead of object structure because the key-value-bundle uses php arrays
-        return json_decode(json_encode($this->getSchema()->process($objectValue, $context)), true);
+        return $this->schemaService->validate($this->schemaFile, $value, $message);
     }
 
     /**
-     * Returns true when $value conforms to the schema
-     *
-     * @param array $value
-     * @param null|string $errorMessage Returns the error message, if any
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid(array $value, &$errorMessage = null): bool
+    public function getFormOptions()
     {
-        // PHP is unable to distinguish between an empty array and an empty object,
-        // that causes `[]` to become an empty array, while the schema expects an
-        // empty object.  We fix this case manually and hope this does not occur
-        // anywhere else $data.
-        if ($value === []) {
-            $value = (object)$value;
-        }
-
-        try {
-            // json_encode and then json_decode to return object structure instead of php array structure because the schema uses objects
-            $this->getSchema()->in(json_decode(json_encode($value), false));
-            return true;
-        } catch (\Exception $exception) {
-            $errorMessage = $exception->getMessage();
-            return false;
-        }
-    }
-
-    /**
-     * @return SchemaContract
-     * @throws \Swaggest\JsonSchema\Exception
-     * @throws \Swaggest\JsonSchema\InvalidValue
-     */
-    private function getSchema()
-    {
-        if ($this->schema === null) {
-            $this->schema = Schema::import(json_decode(file_get_contents($this->jsonSchemaFile)));
-        }
-        return $this->schema;
+        return [
+            'schema' => $this->schemaFile,
+            'debug' => true,
+            'options' => [
+                'ajax' => true,
+                'disable_collapse' => true,
+                'disable_edit_json' => true,
+                'disable_properties' => true,
+                'display_required_only' => false,
+                'required_by_default' => true,
+                'theme' => 'bootstrap4',
+            ],
+        ];
     }
 }

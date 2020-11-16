@@ -12,6 +12,10 @@ Replace `getFromKeyValueStorage`, `getPredefinedKey`, `getMissingDBValues` with 
 
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 4.6.0 - 2020-11-13
+### Added
+- Forward merge `PredefinedJsonSchemaKey` from 3.5.0.
+
 ## 4.5.0 - 2020-10-13
 ### Added
 - Forward merge from 2.x and 3.x.
@@ -89,6 +93,10 @@ zicht_key_value:
 ```
 This example was used for inspiration: https://github.com/symfony/symfony/issues/24545#issuecomment-336419270
 - Collect debuginformation through Symfony's `DataCollector` and display calls to keys and values in the toolbar.
+
+## 3.5.0 - 2020-11-05
+### Added
+- `PredefinedJsonSchemaKey` now uses the `SchemaService` from `zicht/framework-extra-bundle`.
 
 ## 3.4.2 - 2020-08-25
 ### Fixed
