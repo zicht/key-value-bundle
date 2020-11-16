@@ -76,7 +76,7 @@ class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
                     if ($migrateValueIsValid) {
                         if ($input->getOption('force')) {
                             $storageManager->saveValue($key, $migrateValue);
-                            $doctrine->getEntityManager()->flush();
+                            $doctrine->getManager()->flush();
                             $storageState = strip_tags($storageState);
                             $migrateState = 'migrated';
                         } else {
@@ -86,7 +86,7 @@ class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
                         if ($input->getOption('replace-invalid')) {
                             if ($input->getOption('force')) {
                                 $storageManager->saveValue($key, $defaultValue);
-                                $doctrine->getEntityManager()->flush();
+                                $doctrine->getManager()->flush();
                                 $storageState = strip_tags($storageState);
                                 $migrateState = 'replaced with default';
                             } else {

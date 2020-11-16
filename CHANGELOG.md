@@ -12,6 +12,10 @@ Replace `getFromKeyValueStorage`, `getPredefinedKey`, `getMissingDBValues` with 
 
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 4.6.1 - 2020-11-16
+### Fixed
+- Fixes `KeyValueMigrateJsonSchemaKeysCommand`, now using `$doctrine->getManager`.
+
 ## 4.6.0 - 2020-11-13
 ### Added
 - Forward merge `PredefinedJsonSchemaKey` from 3.5.0.
