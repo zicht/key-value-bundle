@@ -98,6 +98,14 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
         // json_encode and then json_decode to return object structure instead of php array structure because the schema uses objects
         $objectValue = json_decode(json_encode($value), false);
 
+        // PHP is unable to distinguish between an empty array and an empty object,
+        // that causes `[]` to become an empty array, while the schema expects an
+        // empty object.  We fix this case manually and hope this does not occur
+        // anywhere else.
+        if ($objectValue === []) {
+            $objectValue = (object)$objectValue;
+        }
+
         // json_encode and then json_decode to return php array structure instead of object structure because the key-value-bundle uses php arrays
         return json_decode(json_encode($this->getSchema()->process($objectValue, $context)), true);
     }
@@ -111,6 +119,14 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
      */
     public function isValid(array $value, &$errorMessage = null): bool
     {
+        // PHP is unable to distinguish between an empty array and an empty object,
+        // that causes `[]` to become an empty array, while the schema expects an
+        // empty object.  We fix this case manually and hope this does not occur
+        // anywhere else.
+        if ($value === []) {
+            $value = (object)$value;
+        }
+
         try {
             // json_encode and then json_decode to return object structure instead of php array structure because the schema uses objects
             $this->getSchema()->in(json_decode(json_encode($value), false));

@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 Nothing so far
 
+## 2.4.2 - 2020-11-27
+### Fixed
+- Add a migration and validation check for `[]` to `(object)[]` conversion.
+
 ## 2.4.1 - 2020-05-13
 ### Fixed
 - The `zicht:key-value:migrate-json-schema-keys` command now uses the Schema library itself
