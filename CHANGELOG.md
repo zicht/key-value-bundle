@@ -143,6 +143,10 @@ This example was used for inspiration: https://github.com/symfony/symfony/issues
 ### Removed
 - Support for Symfony 2.x and Twig 1.x
 
+## 2.4.2 - 2020-11-27
+### Fixed
+- Add a migration and validation check for `[]` to `(object)[]` conversion.
+
 ## 2.4.1 - 2020-05-13
 ### Fixed
 - The `zicht:key-value:migrate-json-schema-keys` command now uses the Schema library itself
