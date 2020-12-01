@@ -12,6 +12,10 @@ Replace `getFromKeyValueStorage`, `getPredefinedKey`, `getMissingDBValues` with 
 
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 4.6.2 - 2020-12-01
+### Fixed
+- Forward merge from 3.5.1.
+
 ## 4.6.1 - 2020-11-16
 ### Fixed
 - Fixes `KeyValueMigrateJsonSchemaKeysCommand`, now using `$doctrine->getManager`.
@@ -97,6 +101,10 @@ zicht_key_value:
 ```
 This example was used for inspiration: https://github.com/symfony/symfony/issues/24545#issuecomment-336419270
 - Collect debuginformation through Symfony's `DataCollector` and display calls to keys and values in the toolbar.
+
+## 3.5.1 - 2020-12-01
+### Fixed
+- Fixed variable name in `PredefinedJsonSchemaKey::migrate`.
 
 ## 3.5.0 - 2020-11-05
 ### Added
