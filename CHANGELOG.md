@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 3.5.1 - 2020-12-01
+### Fixed
+- Fixed variable name in `PredefinedJsonSchemaKey::migrate`.
+
 ## 3.5.0 - 2020-11-05
 ### Added
 - `PredefinedJsonSchemaKey` now uses the `SchemaService` from `zicht/framework-extra-bundle`.

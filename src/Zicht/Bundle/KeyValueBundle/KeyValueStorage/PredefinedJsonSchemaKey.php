@@ -102,7 +102,7 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
      */
     public function migrate($value, &$message = null)
     {
-        return $this->schemaService->migrate($this->schemaFile, $data, $message);
+        return $this->schemaService->migrate($this->schemaFile, $value, $message);
     }
 
     /**
