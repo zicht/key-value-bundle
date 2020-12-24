@@ -6,6 +6,7 @@
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
 use Swaggest\JsonSchema\Context;
+use Swaggest\JsonSchema\RemoteRef\BasicFetcher;
 use Swaggest\JsonSchema\Schema;
 use Swaggest\JsonSchema\SchemaContract;
 use Zicht\Bundle\FrameworkExtraBundle\Form\JsonSchemaType;
@@ -29,7 +30,7 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
             $schemaFile = $args[1];
             $staticUncheckedDefaultValue = isset($args[2]) ? $args[2] : null;
         } else {
-            $schemaService = new SchemaService(new DummyTranslator(), '/unspecified/directory');
+            $schemaService = new SchemaService(new BasicFetcher(), '/unspecified/directory');
             $schemaFile = $args[0];
             $staticUncheckedDefaultValue = isset($args[1]) ? $args[1] : null;
         }
