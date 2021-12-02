@@ -5,12 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-## Next major version
+- Nothing so far
+### Added|Changed|Deprecated|Removed|Fixed|Security
+
+## 5.0.0 - 2021-12-02
+### Added
+- Support for PHP 8
 ### Removed
 - CamelCased Twig functions. They are replaced with snake-cased versions.
-Replace `getFromKeyValueStorage`, `getPredefinedKey`, `getMissingDBValues` with their equivalent.
-
-### Added|Changed|Deprecated|Removed|Fixed|Security
+  Replace `getFromKeyValueStorage`, `getPredefinedKey`, `getMissingDBValues` with their equivalent.
+- Support for PHP 7.1
+- Support for Symfony 3
 
 ## 4.6.2 - 2020-12-01
 ### Fixed
