@@ -12,7 +12,6 @@ use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyAlreadyExistsException;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyNotFoundException;
-use Zicht\Itertools as iter;
 
 /**
  * Class KeyValueStorageManager.
@@ -144,14 +143,13 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
     public function getMissingDBKeys()
     {
         // get all DB keys. Maybe change this to simple query to prevent hydrating json-fields.
-        $dbKeys = iter\map(
+        $dbKeys = array_map(
             function (KeyValueStorage $el) {
                 return $el->getStorageKey();
             },
             $this->getAllEntities()
-        )
-            ->toArray();
-        return array_diff(array_keys($this->predefinedKeys), $dbKeys);
+        );
+        return array_values(array_diff(array_keys($this->predefinedKeys), $dbKeys));
     }
 
     /**

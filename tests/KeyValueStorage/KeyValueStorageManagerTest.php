@@ -11,13 +11,14 @@ use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\LocaleDependentData;
 use PHPUnit\Framework\TestCase;
+use Zicht\Bundle\KeyValueBundle\KeyValueStorage\PredefinedKey;
 
 class KeyValueStorageManagerTest extends TestCase
 {
     /**
      * {@inheritDoc}
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         // 'zz' locale as default
         LocaleDependentData::setLocale('zz');
@@ -42,11 +43,9 @@ class KeyValueStorageManagerTest extends TestCase
         $this->assertEquals('Garble garble', $manager->getValue('test-locale'));
     }
 
-    /**
-     * @expectedException  \Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyAlreadyExistsException
-     */
     public function testKeyAlreadyExists()
     {
+        $this->expectException('\Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyAlreadyExistsException');
         $em = $this->getEntityManager();
         $manager = new KeyValueStorageManager($em, '/tmp/web', '/tmp/web/media/key_value_storage');
 
@@ -63,13 +62,16 @@ class KeyValueStorageManagerTest extends TestCase
         $em = $this->getEntityManager();
         $repo = $this->getRepository();
         $em->method('getRepository')->willReturn($repo);
+        $existingDbKey = new KeyValueStorage();
+        $existingDbKey->setStorageKey('foo-key');
+        $repo->method('findAll')->willReturn([$existingDbKey]);
 
         $manager = new KeyValueStorageManager($em, '/tmp/web', '/tmp/web/media/key_value_storage');
 
         $definer = new FooKeysDefiner();
         $manager->addKeysDefiner($definer);
 
-        $this->assertEquals(['foo-key', 'bar-key', 'test-locale'], $manager->getMissingDBKeys());
+        $this->assertEquals(['bar-key', 'test-locale'], $manager->getMissingDBKeys());
     }
 
     /**

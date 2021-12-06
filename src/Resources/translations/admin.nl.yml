@@ -1,21 +1,19 @@
 admin:
     label:
         keyvaluemenu_item: Generieke configuratie
-list:
-    add: Toevoegen
-    label_storage_key: Setting
-    label_storage_value: Waarde
-    label_friendly_name: Toelichting
-    default_values: Standaard waarden
-    default_values_description: Onderstaande waarden zijn vooraf geconfigureerd. Ze kunnen worden aangepast door een nieuwe configuratieregel toe te voegen met een andere waarde.
-
 breadcrumb:
-  link_key_value_storage_list: Generieke configuratie
-
-form:
-  label_storage_key: Setting
-  label_storage_value: Waarde
-
+    link_key_value_storage_list: Generieke configuratie
 filter:
     label_storage_key: Setting
     label_storage_value: Waarde
+form:
+    label_storage_key: Setting
+    label_storage_value: Waarde
+list:
+    add: Toevoegen
+    default_values: Standaard waarden
+    default_values_description: Onderstaande waarden zijn vooraf geconfigureerd. Ze kunnen worden aangepast door een nieuwe configuratieregel toe te voegen met een andere waarde.
+    label_friendly_name: Toelichting
+    label_storage_key: Setting
+    label_storage_value: Waarde
+    no_value: Geen werkelijke waarde

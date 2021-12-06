@@ -43,10 +43,6 @@ class KeyValueBundleTwigExtension extends AbstractExtension
             new TwigFunction('get_from_key_value_storage', [$this, 'getFromKeyValueStorage']),
             new TwigFunction('get_predefined_key', [$this, 'getPredefinedKey']),
             new TwigFunction('get_missing_db_values', [$this, 'getMissingDBValues']),
-            // TODO CamelCased functions to be removed in the next major version
-            new TwigFunction('getFromKeyValueStorage', [$this, 'getFromKeyValueStorage'], ['deprecated' => true]),
-            new TwigFunction('getPredefinedKey', [$this, 'getPredefinedKey'], ['deprecated' => true]),
-            new TwigFunction('getMissingDBValues', [$this, 'getMissingDBValues'], ['deprecated' => true]),
         ];
     }
 
