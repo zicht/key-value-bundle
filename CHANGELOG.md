@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Nothing so far
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 5.0.1 - 2022-01-11
+### Fixed
+- Calls to previously removed Twig functions were not yet updated.
+- Syntax of `|truncate` filter
+
 ## 5.0.0 - 2021-12-02
 ### Added
 - Support for PHP 8

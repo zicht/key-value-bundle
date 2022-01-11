@@ -5,7 +5,7 @@
 {% block list_table %}
     {{ parent() }}
 
-    {% set missing_db_values = getMissingDBValues() %}
+    {% set missing_db_values = get_missing_db_values() %}
     {% if missing_db_values|length > 0 %}
 
         <div class="col-xs-12 col-md-12">
@@ -30,13 +30,13 @@
                     </tr>
                     </thead>
                     {% for key in missing_db_values %}
-                        {% set predefinedKey = getPredefinedKey(key) %}
+                        {% set predefinedKey = get_predefined_key(key) %}
                         <tr>
                             <td>#</td>
                             <td class="sonata-ba-list-field sonata-ba-list-field-text"><span
                                         title="{{ predefinedKey.key }}">{{ predefinedKey.key|split('.')|last }}</span>
                             </td>
-                            <td class="sonata-ba-list-field sonata-ba-list-field-text">{{ predefinedKey.value|json_encode|truncate }}</td>
+                            <td class="sonata-ba-list-field sonata-ba-list-field-text">{{ predefinedKey.value|json_encode|u.truncate(24, '...') }}</td>
                             <td class="sonata-ba-list-field sonata-ba-list-field-text">{{ predefinedKey.friendlyName }}</td>
                             <td>
                                 <a href="{{ admin.generateUrl('create') }}?key={{ predefinedKey.key|url_encode }}" class="btn btn-sm btn-default edit_link" title="{{ 'link_action_create'|trans({}, 'SonataAdminBundle')|lower }}">
