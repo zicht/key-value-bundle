@@ -2,7 +2,7 @@
 
 {% block field %}
     {% if object %}
-        {% set p = getPredefinedKey(object.storageKey) %}
+        {% set p = get_predefined_key(object.storageKey) %}
         {% if p %}
             {{ p.friendlyName|raw }}
         {% endif %}
