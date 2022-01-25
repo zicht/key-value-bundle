@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Nothing so far
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 5.0.2 - 2022-01-25
+### Added
+- Added a requirement for twig/string-extra as this bundle uses the u.truncate filter.
+
 ## 5.0.1 - 2022-01-11
 ### Fixed
 - Calls to previously removed Twig functions were not yet updated.
