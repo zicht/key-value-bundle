@@ -109,7 +109,7 @@ service is available. Registered with the name
 `zicht_bundle_key_value.key_value_storage_manager`.
 
 # Twig
-There is also a twig extension available. Use the `getFromKeyValueStorage`
+There is also a twig extension available. Use the `get_from_key_value_storage`
 method with the `key` parameter to return the `value`.
 
 # Symfony
