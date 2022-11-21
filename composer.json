@@ -9,7 +9,7 @@
     ],
     "require": {
         "php": "^7.2 || ^8",
-        "doctrine/common": "^2.13",
+        "doctrine/common": "^2.13 || ^3",
         "doctrine/persistence": "^1 || ^2",
         "sonata-project/admin-bundle": "^3",
         "swaggest/json-schema": "^0.12",
