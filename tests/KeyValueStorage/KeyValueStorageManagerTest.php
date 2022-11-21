@@ -5,13 +5,12 @@
 
 namespace Zicht\Bundle\KeyValueBundle\Tests\KeyValueStorage;
 
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\Persistence\ObjectRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\LocaleDependentData;
 use PHPUnit\Framework\TestCase;
-use Zicht\Bundle\KeyValueBundle\KeyValueStorage\PredefinedKey;
 
 class KeyValueStorageManagerTest extends TestCase
 {

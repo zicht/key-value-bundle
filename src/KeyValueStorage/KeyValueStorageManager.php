@@ -5,8 +5,8 @@
 
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
-use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectRepository;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
