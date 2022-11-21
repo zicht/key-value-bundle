@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Nothing so far
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 5.0.3 - 2022-11-21
+### Fixed
+- Dependency for Doctrine
+### Removed
+- Support for PHP < 7.4
+
 ## 5.0.2 - 2022-01-25
 ### Added
 - Added a requirement for twig/string-extra as this bundle uses the u.truncate filter.
