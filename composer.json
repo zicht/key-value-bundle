@@ -11,7 +11,7 @@
         "php": "^7.4 || ^8",
         "doctrine/common": "^2.13 || ^3",
         "doctrine/persistence": "^1 || ^2",
-        "sonata-project/admin-bundle": "^3",
+        "sonata-project/admin-bundle": "^3 || ^4",
         "swaggest/json-schema": "^0.12",
         "symfony/form": "^4.4 || ^5",
         "twig/string-extra": "^3.3",
