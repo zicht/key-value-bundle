@@ -5,8 +5,6 @@
 
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
-use Swaggest\JsonSchema\Context;
-use Swaggest\JsonSchema\Schema;
 use Swaggest\JsonSchema\SchemaContract;
 use Zicht\Bundle\FrameworkExtraBundle\Form\JsonSchemaType;
 use Zicht\Bundle\FrameworkExtraBundle\JsonSchema\SchemaService;
@@ -49,8 +47,6 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
     /**
      * Disable constructing, they can only be created from self::createKey to ensure key/value immutability.
      *
-     * @param SchemaService $schemaService
-     * @param string $schemaFile
      * @param bool|int|float|string|array|object $staticUncheckedDefaultValue
      */
     private function __construct(SchemaService $schemaService, string $schemaFile, $staticUncheckedDefaultValue)
@@ -97,7 +93,7 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
      * Try to migrate a given value to a new value
      *
      * @param bool|int|float|string|array $value
-     * @param null|string $message
+     * @param string|null $message
      * @return bool|int|float|string|array|null Returns null when the validation failed
      */
     public function migrate($value, &$message = null)
@@ -109,7 +105,7 @@ class PredefinedJsonSchemaKey implements PredefinedKeyInterface
      * Try to migrate a given value to a new value
      *
      * @param bool|int|float|string|array $value
-     * @param null|string $message Returns the error message, if any
+     * @param string|null $message Returns the error message, if any
      * @return bool Returns false when the validation failed
      */
     public function isValid($value, &$message = null): bool

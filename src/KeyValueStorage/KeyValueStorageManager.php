@@ -1,7 +1,4 @@
 <?php
-/**
- * @copyright Zicht Online <http://www.zicht.nl>
- */
 
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
@@ -13,11 +10,7 @@ use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyAlreadyExistsException;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\Exception\KeyNotFoundException;
 
-/**
- * Class KeyValueStorageManager.
- *
- * This class is responsible for handling questions in the parameters-domain.
- */
+/** This class is responsible for handling questions in the parameters-domain. */
 final class KeyValueStorageManager implements KeyValueStorageManagerInterface
 {
     /** @var string */
@@ -51,7 +44,6 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
     private $cacheItemPool;
 
     /**
-     * @param ManagerRegistry $registry
      * @param string $webDirectory
      * @param string $storageDirectory
      * @param CacheItemPoolInterface $cacheItemPool
@@ -99,7 +91,7 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
      * Check if a PredefinedKey exists.
      *
      * @param string $key
-     * @return boolean
+     * @return bool
      */
     public function hasPredefinedKey($key)
     {
@@ -122,7 +114,6 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
     /**
      * This method accepts a KeysDefinerInterface and will extract all PredefinedKeys to $this->predefinedKeys.
      *
-     * @param KeysDefinerInterface $keysDefiner
      * @throws KeyAlreadyExistsException
      */
     public function addKeysDefiner(KeysDefinerInterface $keysDefiner)
@@ -156,7 +147,6 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
      * Gets the value for given $key.
      * Either the DB-value or the default value.
      *
-     * @param string $key
      * @return mixed
      * @throws KeyNotFoundException
      */
@@ -228,7 +218,7 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
      * Can also return null when entity not exists.
      *
      * @param string $key
-     * @return null|KeyValueStorage|object
+     * @return KeyValueStorage|object|null
      */
     private function getEntity($key)
     {
@@ -261,7 +251,7 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
      */
     private function getRepository()
     {
-        return $this->registry->getRepository('ZichtKeyValueBundle:KeyValueStorage');
+        return $this->registry->getRepository(KeyValueStorage::class);
     }
 
     private function createCacheKey(string $key): string

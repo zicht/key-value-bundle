@@ -22,7 +22,6 @@ class PredefinedKey implements PredefinedKeyInterface
      * @param mixed $value
      * @param string|null $friendlyName
      * @param string $formType
-     * @param array $formOptions
      * @return PredefinedKey
      */
     public static function createKey($key, $value = null, $friendlyName = null, $formType = TextType::class, array $formOptions = [])

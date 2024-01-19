@@ -1,11 +1,8 @@
 <?php
-/**
- * @copyright Zicht Online <http://zicht.nl>
- */
 
 namespace Zicht\Bundle\KeyValueBundle\EventListener;
 
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\LocaleDependentData;
 
 class LocalizationListener
@@ -13,18 +10,12 @@ class LocalizationListener
     /** @var string[] */
     private $locales;
 
-    /**
-     * @param array $locales
-     */
     public function __construct(array $locales)
     {
         $this->locales = $locales;
     }
 
-    /**
-     * @param GetResponseEvent $event
-     */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(RequestEvent $event)
     {
         if ($event->isMasterRequest()) {
             $locale = $event->getRequest()->getLocale();
