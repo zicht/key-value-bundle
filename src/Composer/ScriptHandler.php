@@ -6,15 +6,12 @@
 namespace Zicht\Bundle\KeyValueBundle\Composer;
 
 use Composer\Script\Event;
-use Composer\Installer\PackageEvent;
 use Sensio\Bundle\DistributionBundle\Composer\ScriptHandler as BaseScriptHandler;
 
 class ScriptHandler extends BaseScriptHandler
 {
     /**
      * Calls the zicht:key-value:create-directory console command
-     *
-     * @param Event $event
      */
     public static function createKeyValueStorageDirectory(Event $event)
     {

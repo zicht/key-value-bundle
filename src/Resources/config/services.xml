@@ -42,10 +42,13 @@
         <!-- commands -->
         <service id="Zicht\Bundle\KeyValueBundle\Command\KeyValueCreateDirectoryCommand">
             <tag name="console.command"/>
+            <argument type="service" id="Symfony\Component\Filesystem\Filesystem"/>
         </service>
 
         <service id="Zicht\Bundle\KeyValueBundle\Command\KeyValueMigrateJsonSchemaKeysCommand">
             <tag name="console.command"/>
+            <argument type="service" id="Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManagerInterface"/>
+            <argument type="service" id="Doctrine\ORM\EntityManagerInterface"/>
         </service>
 
     </services>

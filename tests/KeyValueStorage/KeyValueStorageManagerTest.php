@@ -5,12 +5,12 @@
 
 namespace Zicht\Bundle\KeyValueBundle\Tests\KeyValueStorage;
 
-use Doctrine\Persistence\ObjectRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectRepository;
+use PHPUnit\Framework\TestCase;
 use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\LocaleDependentData;
-use PHPUnit\Framework\TestCase;
 
 class KeyValueStorageManagerTest extends TestCase
 {
@@ -125,7 +125,7 @@ class KeyValueStorageManagerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|ManagerRegistry
+     * @return \PHPUnit\Framework\MockObject\MockObject|ManagerRegistry
      */
     private function getEntityManager()
     {
@@ -133,7 +133,7 @@ class KeyValueStorageManagerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|ObjectRepository
+     * @return \PHPUnit\Framework\MockObject\MockObject|ObjectRepository
      */
     private function getRepository()
     {

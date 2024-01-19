@@ -31,8 +31,6 @@ class LocaleDependentData
 
     /**
      * The data must be in the form ['nl' => mixed, 'en' => mixed, ...]
-     *
-     * @param array $data
      */
     public function __construct(array $data)
     {

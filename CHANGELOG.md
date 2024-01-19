@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Nothing so far
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 
+## 5.0.4 - 2024-01-19
+### Fixed
+- Fix deprecations
+
 ## 5.0.3 - 2022-11-21
 ### Fixed
 - Dependency for Doctrine

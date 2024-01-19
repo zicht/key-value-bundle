@@ -1,7 +1,4 @@
 <?php
-/**
- * @copyright Zicht Online <http://www.zicht.nl>
- */
 
 namespace Zicht\Bundle\KeyValueBundle\DependencyInjection\CompilerPass;
 
@@ -11,12 +8,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class KeysDefinerCompilerPass implements CompilerPassInterface
 {
-    /**
-     * Finds services tagged with `zicht_bundle_key_value.keys_definer` and adds them to the StorageManager.
-     *
-     * @param ContainerBuilder $container
-     */
-    public function process(ContainerBuilder $container)
+    /** Finds services tagged with `zicht_bundle_key_value.keys_definer` and adds them to the StorageManager. */
+    public function process(ContainerBuilder $container): void
     {
         // merge possibly multiple config yml files into one $defaults array
         $defaults = [];

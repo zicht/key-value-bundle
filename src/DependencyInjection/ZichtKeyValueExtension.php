@@ -1,7 +1,4 @@
 <?php
-/**
- * @copyright Zicht Online <http://zicht.nl>
- */
 
 namespace Zicht\Bundle\KeyValueBundle\DependencyInjection;
 
@@ -12,14 +9,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class ZichtKeyValueExtension extends Extension
 {
-    /**
-     * Responds to the twig configuration parameter.
-     *
-     * @param array $configs
-     * @param ContainerBuilder $container
-     * @return void
-     */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
@@ -38,14 +28,6 @@ class ZichtKeyValueExtension extends Extension
             ->replaceArgument(0, $config['locales']);
 
         $container->getDefinition('zicht_bundle_key_value.event_listener.localization_listener')
-            ->replaceArgument(
-                0,
-                array_map(
-                    function ($value) {
-                        return $value['locale'];
-                    },
-                    $config['locales']
-                )
-            );
+            ->replaceArgument(0, array_map(fn ($value) => $value['locale'], $config['locales']));
     }
 }

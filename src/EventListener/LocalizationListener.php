@@ -13,17 +13,11 @@ class LocalizationListener
     /** @var string[] */
     private $locales;
 
-    /**
-     * @param array $locales
-     */
     public function __construct(array $locales)
     {
         $this->locales = $locales;
     }
 
-    /**
-     * @param GetResponseEvent $event
-     */
     public function onKernelRequest(GetResponseEvent $event)
     {
         if ($event->isMasterRequest()) {
