@@ -52,11 +52,11 @@ class JsonSchemaType extends AbstractType
         $builder->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) use ($options) {
-            try {
-                $options['schema']->in(json_decode($event->getData()));
-            } catch (\Exception $exception) {
-                $event->getForm()->addError(new FormError($exception->getMessage()));
-            }
+                try {
+                    $options['schema']->in(json_decode($event->getData()));
+                } catch (\Exception $exception) {
+                    $event->getForm()->addError(new FormError($exception->getMessage()));
+                }
             }
         );
     }

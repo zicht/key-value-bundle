@@ -29,7 +29,6 @@ class KeyValueStorageManagerDebugWrapper implements KeyValueStorageManagerInterf
     }
 
     /**
-     * @param string $key
      * @return mixed
      * @throws Exception\KeyNotFoundException
      */

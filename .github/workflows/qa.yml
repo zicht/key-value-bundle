@@ -10,30 +10,44 @@ jobs:
         runs-on: ubuntu-22.04
         strategy:
             matrix:
-                php: [ '7.4', '8.0', '8.1' ]
+                php: [ '7.4', '8.1' ]
         name: PHP ${{ matrix.php }}
         steps:
-            -   uses: actions/checkout@v2
+            -   uses: actions/checkout@v3
 
-            # https://github.com/shivammathur/setup-php
+            -   id: composer-cache
+                run: echo "COMPOSER_CACHE_DIR=$(composer config cache-dir)" >> $GITHUB_OUTPUT
+
+            -   uses: actions/cache@v3
+                with:
+                    path: ${{ steps.composer-cache.outputs.COMPOSER_CACHE_DIR }}
+                    key: composer-${{ runner.OS }}-${{ hashFiles('composer.json') }} }}
+                    restore-keys: |
+                        composer-${{ runner.OS }}-
+                        composer-
+
             -   uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php }}
                     coverage: none # disable xdebug, pcov
-                    tools: composer:v2
+                    tools: cs2pr
 
             -   run: composer validate --strict
-            -   run: composer config -g github-oauth.github.com ${{ secrets.GITHUB_TOKEN }}
+            -   run: composer config --global github-oauth.github.com ${{ secrets.GITHUB_TOKEN }}
+            -   run: composer config --global --auth http-basic.repo.packagist.com token ${{ secrets.COMPOSER_PACKAGIST_COM_TOKEN }}
+            -   run: composer config repositories.private-packagist composer https://repo.packagist.com/zicht/
             -   run: composer install --prefer-dist --no-progress --no-scripts
             -   if: always()
-                run: composer run-script lint-no-warn
+                run: composer run-script lint -- --format=checkstyle | cs2pr
+            -   if: always()
+                run: composer run-script analysis -- --php-version=${{ matrix.php }} --no-suggestions --output-format=github
             -   if: always()
                 run: composer run-script test
 
     translations:
         runs-on: ubuntu-22.04
         steps:
-            -   uses: actions/checkout@v2
+            -   uses: actions/checkout@v3
             -   uses: actions/setup-python@v2
                 with:
                     python-version: '3.7'

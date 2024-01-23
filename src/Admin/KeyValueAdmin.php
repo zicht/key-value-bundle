@@ -1,11 +1,8 @@
 <?php
-/**
- * @copyright Zicht Online <http://www.zicht.nl>
- */
 
 namespace Zicht\Bundle\KeyValueBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -13,37 +10,28 @@ use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
+use Zicht\Bundle\KeyValueBundle\Entity\KeyValueStorage;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManagerInterface;
 
-class KeyValueAdmin extends Admin
+/** @extends AbstractAdmin<KeyValueStorage> */
+class KeyValueAdmin extends AbstractAdmin
 {
-    /**
-     * @var KeyValueStorageManager
-     */
-    private $storageManager;
+    private KeyValueStorageManagerInterface $storageManager;
 
-    /** @var AdapterInterface */
-    private $cache;
+    private AdapterInterface $cache;
 
-    /**
-     * @param KeyValueStorageManager $storageManager
-     */
-    public function setStorageManager(KeyValueStorageManagerInterface $storageManager)
+    public function setStorageManager(KeyValueStorageManagerInterface $storageManager): void
     {
         $this->storageManager = $storageManager;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function configureListFields(ListMapper $list)
+    protected function configureListFields(ListMapper $list): void
     {
         parent::configureListFields($list);
         $list
             ->add('storageKey', null, ['template' => '@ZichtKeyValue/Admin/cell_storageKey.html.twig'])
             ->add('storageValue', null, ['template' => '@ZichtKeyValue/Admin/cell_storageValue.html.twig'])
-            ->add('friendlyName', null, ['template' => '@ZichtKeyValue/Admin/cell_friendlyName.html.twig'])
+            ->add('friendlyName', null, ['template' => '@ZichtKeyValue/Admin/cell_friendlyName.html.twig', 'virtual_field' => true])
             ->add(
                 '_action',
                 'actions',
@@ -56,19 +44,13 @@ class KeyValueAdmin extends Admin
             );
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function configureDatagridFilters(DatagridMapper $filter)
+    protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         parent::configureDatagridFilters($filter);
         $filter->add('storageKey')->add('storageValue');
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function configureFormFields(FormMapper $form)
+    protected function configureFormFields(FormMapper $form): void
     {
         $subject = $this->getSubject();
 
@@ -95,10 +77,7 @@ class KeyValueAdmin extends Admin
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function prePersist($subject)
+    public function prePersist($subject): void
     {
         // when we first persist the entity, we want the value to be the same as the predefined default value
         if ($this->storageManager->hasPredefinedKey($subject->getStorageKey())) {
@@ -107,35 +86,23 @@ class KeyValueAdmin extends Admin
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function postUpdate($object)
+    public function postUpdate($object): void
     {
         // could also be implemented with doctrine lifecycle callbacks.
         $this->storageManager->purgeCachedItem($object->getStorageKey());
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function postPersist($object)
+    public function postPersist($object): void
     {
         $this->storageManager->purgeCachedItem($object->getStorageKey());
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function postRemove($object)
+    public function postRemove($object): void
     {
         $this->storageManager->purgeCachedItem($object->getStorageKey());
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function preUpdate($subject)
+    public function preUpdate($subject): void
     {
         // when the value is an UploadedFile ('file' form type) we will move it
         $value = $subject->getStorageValue();

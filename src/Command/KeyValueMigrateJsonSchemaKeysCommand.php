@@ -1,29 +1,36 @@
 <?php
-/**
- * @copyright Zicht Online <http://zicht.nl>
- */
 
 namespace Zicht\Bundle\KeyValueBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Zicht\Bundle\FrameworkExtraBundle\JsonSchema\SchemaService;
-use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManager;
+use Zicht\Bundle\KeyValueBundle\KeyValueStorage\KeyValueStorageManagerInterface;
 use Zicht\Bundle\KeyValueBundle\KeyValueStorage\PredefinedJsonSchemaKey;
 
-class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
+class KeyValueMigrateJsonSchemaKeysCommand extends Command
 {
     /** @var string */
     protected static $defaultName = 'zicht:key-value:migrate-json-schema-keys';
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function configure()
+    private KeyValueStorageManagerInterface $storageManager;
+
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(
+        KeyValueStorageManagerInterface $keyValueStorageManager,
+        EntityManagerInterface $entityManager
+    ) {
+        $this->storageManager = $keyValueStorageManager;
+        $this->entityManager = $entityManager;
+        parent::__construct();
+    }
+
+    protected function configure(): void
     {
         $this
             ->setDescription('Validate all json schema keys and migrate when possible')
@@ -31,22 +38,15 @@ class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
             ->addOption('force', null, InputOption::VALUE_NONE, 'Force migration in the database to occur');
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
         $table = new Table($output);
         $table->setHeaders(['Key', 'Default', 'Storage', 'Migrate']);
 
-        /** @var KeyValueStorageManager $storageManager */
-        $storageManager = $this->getContainer()->get('zicht_bundle_key_value.key_value_storage_manager');
-        $doctrine = $this->getContainer()->get('doctrine');
-
-        foreach ($storageManager->getAllKeys() as $key) {
-            $predefinedKey = $storageManager->getPredefinedKey($key);
+        foreach ($this->storageManager->getAllKeys() as $key) {
+            $predefinedKey = $this->storageManager->getPredefinedKey($key);
             if ($predefinedKey instanceof PredefinedJsonSchemaKey) {
                 $key = $predefinedKey->getKey();
                 $defaultValue = $predefinedKey->getValue();
@@ -56,7 +56,7 @@ class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
                     $io->error(json_encode($defaultValue, JSON_PRETTY_PRINT));
                 }
                 $defaultState = $defaultValueIsValid ? 'ok' : '<error>invalid</error>';
-                $storageValue = $storageManager->getValue($key);
+                $storageValue = $this->storageManager->getValue($key);
                 if (!$storageValueIsValid = $predefinedKey->isValid($storageValue, $message)) {
                     $io->writeln(sprintf('%s - validation error on storage value', $key));
                     $io->writeln($message);
@@ -75,8 +75,8 @@ class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
 
                     if ($migrateValueIsValid) {
                         if ($input->getOption('force')) {
-                            $storageManager->saveValue($key, $migrateValue);
-                            $doctrine->getManager()->flush();
+                            $this->storageManager->saveValue($key, $migrateValue);
+                            $this->entityManager->flush();
                             $storageState = strip_tags($storageState);
                             $migrateState = 'migrated';
                         } else {
@@ -85,8 +85,8 @@ class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
                     } else {
                         if ($input->getOption('replace-invalid')) {
                             if ($input->getOption('force')) {
-                                $storageManager->saveValue($key, $defaultValue);
-                                $doctrine->getManager()->flush();
+                                $this->storageManager->saveValue($key, $defaultValue);
+                                $this->entityManager->flush();
                                 $storageState = strip_tags($storageState);
                                 $migrateState = 'replaced with default';
                             } else {
@@ -101,5 +101,7 @@ class KeyValueMigrateJsonSchemaKeysCommand extends ContainerAwareCommand
         }
 
         $table->render();
+
+        return 0;
     }
 }
