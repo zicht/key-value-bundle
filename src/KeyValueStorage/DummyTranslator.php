@@ -5,7 +5,7 @@
 
 namespace Zicht\Bundle\KeyValueBundle\KeyValueStorage;
 
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DummyTranslator implements TranslatorInterface
 {

@@ -2,11 +2,13 @@ admin:
     label:
         keyvaluemenu_item: Generieke configuratie
 breadcrumb:
+    link_key_value_storage_create: Aanmaken
     link_key_value_storage_list: Generieke configuratie
 filter:
     label_storage_key: Setting
     label_storage_value: Waarde
 form:
+    group_admin_label_keyvaluemenu_item: Generieke configuratie
     label_storage_key: Setting
     label_storage_value: Waarde
 list:

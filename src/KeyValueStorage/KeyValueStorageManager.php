@@ -46,9 +46,8 @@ final class KeyValueStorageManager implements KeyValueStorageManagerInterface
     /**
      * @param string $webDirectory
      * @param string $storageDirectory
-     * @param CacheItemPoolInterface $cacheItemPool
      */
-    public function __construct(ManagerRegistry $registry, $webDirectory, $storageDirectory, CacheItemPoolInterface $cacheItemPool = null)
+    public function __construct(ManagerRegistry $registry, $webDirectory, $storageDirectory, ?CacheItemPoolInterface $cacheItemPool = null)
     {
         $this->registry = $registry;
         $this->webDirectory = $webDirectory;
