@@ -2,11 +2,13 @@ admin:
     label:
         keyvaluemenu_item: Generic config
 breadcrumb:
+    link_key_value_storage_create: Create
     link_key_value_storage_list: Generic config
 filter:
     label_storage_key: Setting
     label_storage_value: Value
 form:
+    group_admin_label_keyvaluemenu_item: Generic config
     label_storage_key: Key
     label_storage_value: Value
 list:
